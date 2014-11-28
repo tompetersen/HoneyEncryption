@@ -1,0 +1,74 @@
+\section{Verschlüsselungsschema}
+\label{sec:schema}
+
+Nachdem eine Nachricht aus dem Message Space - wie im vorherigen Kapitel beschrieben - durch eine DTE auf den Seed Space abgebildet wurde, folgt die Verschlüsselung des Ergebnisses. Hierfür schlägt \cite{EURO2014} zwei verschiedene Vorgehensweisen vor. Die unter Verwendung dieser Vorgehensweisen entstehenden Honey Encryption-Schemata werden im Folgenden dargestellt.
+
+\subsection{Hashbasierte Verschlüsselung}
+
+Im ersten Schritt ...
+
+\begin{figure}[h!]
+	\begin{align*}
+		\text{HEnc}&_{\text{Hash}}(M, K)\\
+		&S \overset{<r>}{=} \text{DTE}(M)\\ 	%Encoding
+		&K_D = \text{PBKDF}(K)\\ 		%PBKDF2
+		&R \overset{<r>}{=} {0,1}^n\\	%Random
+		&H = \text{HF}(K_D,R)\\	%Hash
+		&C = H \oplus S\\	%XOR
+		&\text{Return } (C,R)
+	\end{align*}
+	\caption{Hashbasierte Verschlüsselung}
+	\label{fig:HashEnc}
+\end{figure}
+
+\begin{figure}[h!]
+	\begin{align*}
+		\text{HDec}&_{\text{Hash}}((C,R), K)\\
+		&K_D = \text{PBKDF}(K)\\ 		%PBKDF2
+		&H = \text{HF}(K_D,R)\\	%Hash
+		&S = H \oplus C\\	%XOR
+		&M = \text{DTE}^{-1}(S)\\ 	%Encoding
+		&\text{Return } M
+	\end{align*}
+	\caption{Hashbasierte Entschlüsselung}
+	\label{fig:HashDec}
+\end{figure}
+
+\subsection{Auf Blockchiffren basierte Verschlüsselung}
+
+\begin{figure}[h!]
+	\begin{align*}
+		\text{HEnc }&_{\text{Block}}(M, K)\\
+		&S \overset{<r>}{=} \text{DTE}(M)\\ 	%Encoding
+		&R \overset{<r>}{=} {0,1}^k\\	%Random
+		&K' = \text{HF}(K,R)\\ 		%Hash
+		\\
+		&P = \epsilon \\
+		&\text{For } i = 1 \text{ to } \left\lceil \frac{|S|}{n} \right\rceil \\
+		&\qquad P = P \text{ || Enc}(K',i)\\	%Enc
+		\\
+		&C = P[1 .. |S|] \oplus S\\	%XOR
+		&\text{Return } (C,R)
+	\end{align*}
+	\caption{Verschlüsselung mit Blockchiffre (CTR-Modus)}
+	\label{fig:BlockEnc}
+\end{figure}
+
+\begin{figure}[h!]
+	\begin{align*}
+		\text{HDec }&_{\text{Block}}((C,R), K)\\
+		&K' = \text{HF}(K,R)\\ 		%Hash
+		\\
+		&P = \epsilon \\
+		&\text{For } i = 1 \text{ to } \left\lceil \frac{|S|}{n} \right\rceil \\
+		&\qquad P = P \text{ || Enc}(K',i)\\	%Enc
+		\\
+		&S = P[1 .. |S|] \oplus M\\	%XOR
+		&M = \text{DTE}^{-1}(S)\\ 	%Encoding
+		&\text{Return } M
+	\end{align*}
+	\caption{Entschlüsselung mit Blockchiffre (CTR-Modus)}
+	\label{fig:BlockDec}
+\end{figure}
+
+\newpage
