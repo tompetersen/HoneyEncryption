@@ -55,20 +55,27 @@ Durch eine solche Zusammenfassung (im engl. auch Abstract genannt) am Anfang der
 \label{sec:dte}
 Die DTE, Abkürzung für \emph{distribution-transforming encoder}, dient zum Abbilden einer Nachricht $M$ aus dem Message Space $\mathcal{M}$ auf einen Seed $S$ aus dem Seed Space $\mathcal{S}$. Gleichermaßen soll sie die Möglichkeit bieten, von einem Seed auf die ursprüngliche Nachricht abzubilden. Eine DTE ist also ein Tupel von Algorithmen
 $$DTE = (encode, decode)$$
-wobei $encode$ einen meist randomisierten Algorithmus der Form $\mathcal{M} \rightarrow \mathcal{S}$ und $decode$ einen deterministischen Algorithmus der Form $\mathcal{S} \rightarrow \mathcal{M}$ beschreibt. Auf $encode$ und $decode$ soll im Folgenden näher eingegangen werden.
+wobei $encode$ einen meist randomisierten Algorithmus der Form $\mathcal{M} \rightarrow \mathcal{S}$ und $decode$ einen deterministischen Algorithmus der Form $\mathcal{S} \rightarrow \mathcal{M}$ beschreibt.
 
-Bei der Verschlüsselung einer Nachricht $M \in \mathcal{M}$ wird der Algorithmus $encode$ verwendet. Dabei sollte der 
+Ein DTE-Schema $(encode, decode)$ wird als \emph{korrekt} bezeichnet, wenn für jede Nachricht $M \in \mathcal{M}$, die mit $encode$ in den Seed Space $\mathcal{S}$ und mit $decode$ anschließend wieder in den Message Space $\mathcal{M}$ abgebildet wird, das Resultat wieder die ursprüngliche Nachricht $M$  ist. Formal kann dies geschrieben werden als
+$$P(decode(encode(M)) = M) = 1 \qquad f.a. M \in \mathcal{M}$$
+wobei P ein Maß für die Wahrscheinlichkeit für das in den Klammern stehende Ereignis ist.
+
+Bei der Konstruktion einer DTE ist nicht nur dies zu beachten. Wichtig ist ebenfalls, die Verteilung der Wahrscheinlichkeiten der Nachrichten im Message Space zu kennen. Entsprechend dieser Wahrscheinlichkeiten wird einer Nachricht eine Anzahl von Seeds zur Kodierung zugewiesen.
+
+Bei der Verschlüsselung einer Nachricht $M \in \mathcal{M}$ wird der Algorithmus $encode$ verwendet. Dabei wird eine Nachricht aus dem Message Space durch einen Seed aus dem Seed Space kodiert. Wie eingangs bereits erwähnt handelt es sich bei $encode$ um einen randomisierten Algorithmus. Das liegt an der Tatsache, dass 
 
 
 
 
-Ein DTE-Schema $(encode, decode)$ wird als \emph{korrekt} bezeichnet, wenn für jede Nachricht $M \in \mathcal{M}$, die mit $encode$ in den Seed Space $\mathcal{S}$ und mit $decode$ anschließend wieder in den Message Space $\mathcal{M}$ abgebildet wird, das Resultat wieder die ursprüngliche Nachricht $M$  ist. 
+
+
 
 
 \begin{itemize}
 \item $\mathcal{S}, \mathcal{M}$
 \item (DTE = (encode, decode))
-\item Zufall bei der encode Funktion
+\item Zufall bei der encode Funktion -> Encode keine Funktion im mathematischen Sinne
 \item Eindeutigkeit bei der decode Funktion
 \end{itemize}
 
