@@ -1,4 +1,4 @@
-\begin{thebibliography}{JR14b}
+\begin{thebibliography}{Wik14}
 
 \bibitem[JR14a]{IEEE2014}
 Ari Juels and Thomas Ristenpart.
@@ -15,6 +15,15 @@ Ari Juels.
 \newblock The password that never was.
 \newblock
   \url{http://crcs.seas.harvard.edu/event/ari-juels-the-password-that-never-was},
-  M{\"a}rz 2014.
+  2014.
+\newblock Online; Letzter Zugriff: 27.10.2014.
+
+\bibitem[Wik14]{WIKIInv}
+Wikipedia.
+\newblock Inversionsmethode --- wikipedia{,} die freie enzyklopädie.
+\newblock
+  \url{http://de.wikipedia.org/w/index.php?title=Inversionsmethode&oldid=134296036},
+  2014.
+\newblock Online; Letzter Zurgiff: 30. November 2014.
 
 \end{thebibliography}
