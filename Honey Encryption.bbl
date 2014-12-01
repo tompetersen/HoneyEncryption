@@ -18,6 +18,12 @@ Ari Juels.
   2014.
 \newblock Online; Letzter Zugriff: 27.10.2014.
 
+\bibitem[Sch06]{Schneier2006}
+Bruce Schneier.
+\newblock {\em Angewandte Kryptographie - Der Klassiker. Protokolle,
+  Algorithmen und Sourcecode in C}.
+\newblock Pearson Studium, München, 2006.
+
 \bibitem[Wik14]{WIKIInv}
 Wikipedia.
 \newblock Inversionsmethode --- wikipedia{,} die freie enzyklopädie.

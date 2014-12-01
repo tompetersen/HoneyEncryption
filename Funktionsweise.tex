@@ -1,28 +1,41 @@
 \section{Funktionsweise}
 \label{sec:funktionsweise}
 
-\subsection{Verfahren und Notationen}
+Hier sollte noch viel viel mehr stehen...
 
-\textbf{Verfahren}
+\subsection{Verwendete Verfahren}
 
-XOR \(\oplus\)
+\subsubsection{XOR}
+Die XOR-(Exklusiv-ODER-)Verknüpfung ist ein bitweiser Operator, der für zwei unterschiedliche Eingangsbits 1 ergibt und ansonsten 0. Seine besondere Bedeutung für die Kryptographie liegt in dem Zusammenhang \(K \oplus K = 0\) und somit \((M \oplus K) \oplus K = M\), dass heißt zweifache Verknüpfung von M mit dem Bitstring K ergibt wiederum M. Diese zweifache Verknüpfung lässt sich als Ver- und Entschlüsselung interpretieren, wie es beispielsweise beim OneTimePad geschieht \cite{Schneier2006}.%S.15-20
 
-Hashfunktion HF
+\subsubsection{Hashfunktion}
+HF
 
-Blockchiffre Enc/Dec(?) \textit{mit DTE abstimmen}
+\subsubsection{Blockchiffre}
+Enc/Dec(?) \textit{mit DTE abstimmen}
 
-Password Based Key Derivation Function PBKDF(2)
+\subsubsection{Password Based Key Derivation Function}
+PBKDF(2)
 
-Betriebsmodi für Blockchiffren CTR, CBC
+\subsubsection{Betriebsmodi für Blockchiffren}
+CTR, CBC
 
-\textbf{Notationen}
+\subsection{Notationen}
 
-\(\overset{<r>}{=}\)
+In den folgenden Kapiteln, in denen näher auf die Funktionsweise der Honey Encryption eingegegangen wird, werden folgende Notationen verwendet:
 
-||
+\begin{description}
 
-\(P[1..|S|]\)
+\item[\(\overset{<r>}{=}\)] steht für eine nicht-deterministische Zuweisung. Dies kann entweder komplett zufällig geschehen (wie bei Belegung von zufälligen Bitstrings) oder zumindestens vom Zufall mitbestimmt werden (wie bei der Kodierung durch die DTE).
 
-\(\epsilon\)
+\item[\(a \oplus b\)] steht für die XOR-Verknüpfung von a und b.
+
+\item[\(S || P\)] steht für die Konkatenierung der Zeichenketten S und P.
+
+\item[\(S{[1..n]}\)] steht für die Nutzung der ersten n Zeichen von S.
+
+\item[\(\epsilon\)] steht für die leere Zeichenkette.
+
+\end{description}
 
 \newpage
