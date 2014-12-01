@@ -18,6 +18,11 @@ Ari Juels.
   2014.
 \newblock Online; Letzter Zugriff: 27.10.2014.
 
+\bibitem[Kal00]{pbkdf2000}
+B.~Kaliski.
+\newblock {PKCS \#5: Password-Based Cryptography Specification Version 2.0}.
+\newblock RFC 2898, 2000.
+
 \bibitem[Sch06]{Schneier2006}
 Bruce Schneier.
 \newblock {\em Angewandte Kryptographie - Der Klassiker. Protokolle,

@@ -9,16 +9,23 @@ Hier sollte noch viel viel mehr stehen...
 Die XOR-(Exklusiv-ODER-)Verknüpfung ist ein bitweiser Operator, der für zwei unterschiedliche Eingangsbits 1 ergibt und ansonsten 0. Seine besondere Bedeutung für die Kryptographie liegt in dem Zusammenhang \(K \oplus K = 0\) und somit \((M \oplus K) \oplus K = M\), dass heißt zweifache Verknüpfung von M mit dem Bitstring K ergibt wiederum M. Diese zweifache Verknüpfung lässt sich als Ver- und Entschlüsselung interpretieren, wie es beispielsweise beim OneTimePad geschieht \cite{Schneier2006}.%S.15-20
 
 \subsubsection{Hashfunktion}
-HF
+Eine Hashfunktion ist eine Funktion, die eine Eingabe variabler Länge auf einen String fester Länge abbildet.
+
+In der Kryptographie werden insbesondere Einweg-Hashfunktionen eingesetzt. Bei dieser Art von Hashfunktionen ist es leicht aus einer Eingabe den Hashwert zu berechnen, jedoch sehr schwer zu einem gegebenen Hashwert eine Eingabe zu finden die auf diesen Wert abgebildet wird \cite{Schneier2006}. Beispiele für heute verwendete Hashfunktionen sind MD5 und SHA256.
 
 \subsubsection{Blockchiffre}
-Enc/Dec(?) \textit{mit DTE abstimmen}
+Bei Blockchiffren handelt es sich um symmetrische Verschlüsselungsalgorithmen, die Nachrichten in Blöcken fester Größe verschlüsseln. Es gilt \(\text{Enc}_K(M)=C\) und \(\text{Dec}_K(C)=M\). Hierbei steht \(M\) für die Nachricht, \(K\) für den Schlüssel, der verwendet wird, \(C\) für den Chiffretext und Enc bzw. Dec für die Ver- bzw. Entschlüsselung\cite{Schneier2006}.
 
-\subsubsection{Password Based Key Derivation Function}
-PBKDF(2)
+Enc/Dec(?) \textbf{mit DTE abstimmen}
 
 \subsubsection{Betriebsmodi für Blockchiffren}
-CTR, CBC
+Kryptographische Modi sind Verfahren, die das Verschlüsseln einer Nachricht per Blockchiffre beschreiben. Sie verknüpfen die Blockchiffre normalerweise mit einer Rückkopplung und wenigen einfachen Operationen. Beispiele für Modi sind CBC (Cipher Block Chaining - XOR-Verknüpfung des zuletzt erhaltenen Chiffretexts mit dem nächsten Klartextblock vor seiner Verschlüsselung) oder CTR (Counter Mode - Verschlüsselung eines Initialisierungsvektors und eines blockweise erhöhten Zählers mit dem Schlüssel und anschließende XOR-Verknüpfung des erhaltenen Zwischenschlüssels mit dem Klartextblock) \cite{Schneier2006}.
+
+\subsubsection{Password Based Key Derivation Function}
+Password Based Key Derivation Functions leiten aus einem Passwort (und möglichen anderen Parametern) einen Schlüssel ab, der dann beispielsweise in symmetrischen Algorithmen weiter verwendet werden kann.
+
+Derzeitige Empfehlung ist die Verwendung von PBKDF2. Innerhalb dieses Algorithmus wird mehrfach eine pseudozufällige Funktion auf die Eingangswerte angewendet. Durch diese Erhöhung der Berechnungszeit steigt der Aufwand für Brute-Force-Angriffe auf Verschlüsselungen, die dieses Verfahren nutzen, stark an  \cite{pbkdf2000}.
+
 
 \subsection{Notationen}
 
@@ -26,11 +33,11 @@ In den folgenden Kapiteln, in denen näher auf die Funktionsweise der Honey Encr
 
 \begin{description}
 
-\item[\(\overset{<r>}{=}\)] steht für eine nicht-deterministische Zuweisung. Dies kann entweder komplett zufällig geschehen (wie bei Belegung von zufälligen Bitstrings) oder zumindestens vom Zufall mitbestimmt werden (wie bei der Kodierung durch die DTE).
+\item[\(\overset{<r>}{=}\)] steht für eine nicht-deterministische Zuweisung. Dies kann entweder komplett zufällig geschehen (wie bei Belegung von zufälligen Bitstrings) oder zumindestens vom Zufall mitbestimmt werden (wie bei der Kodierung einer Nachricht durch DTE).
 
 \item[\(a \oplus b\)] steht für die XOR-Verknüpfung von a und b.
 
-\item[\(S || P\)] steht für die Konkatenierung der Zeichenketten S und P.
+\item[\(S || T\)] steht für die Konkatenierung der Zeichenketten S und T.
 
 \item[\(S{[1..n]}\)] steht für die Nutzung der ersten n Zeichen von S.
 
