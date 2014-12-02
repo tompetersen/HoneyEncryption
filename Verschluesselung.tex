@@ -1,3 +1,13 @@
+\subsection{Ein DTE für private RSA-Schlüssel}
+
+Das folgende Beispiel ist entnommen aus \cite{EURO2014}.
+
+Bei RSA handelt es sich um einen asymmetrischen Verschlüsselungsalgorithmus, d.h. das Verfahren beruht auf einem öffentlichen und einem privaten Schlüssel. Zur Generierung der Schlüssel wählt man zwei große (heutiger Stand: ~2000 Bit \cite{BSI2014}) Primzahlen \(p\) und \(q\) und errechnet aus ihnen öffentlichen und privaten Schlüssel (zu Details siehe \cite{Schneier2006}). RSA wird beispielsweise bei SSL/TLS oder SSH eingesetzt. Für die Anwendung von Honey Encryption ist jedoch nur der zweite Fall geeignet, denn bei SSL/TLS ist der öffentliche Schlüssel des Servers bekannt und so ließe sich leicht nachprüfen, ob der richtige private Schlüssel entschlüsselt wurde. 
+
+Bei SSH lässt sich Honey Encryption jedoch anwenden. In diesem Fall wird der öffentliche Schlüssel zum Zweck der Authentifizierung auf dem Server gespeichert, den man erreichen möchte (und steht somit dem Angreifer nicht zur Verfügung). Der private Schlüssel (genauer p und q zusammen mit weiteren berechneten Werten, um die Ver- bzw. Entschlüsselung nach dem Chinesischen Restsatz zu erleichtern) wird verschlüsselt auf dem Clientsystem gespeichert. 
+
+Zur Erstellung einer DTE für RSA-Schlüssel muss betrachtet werden, wie die Primzahlen p und q errechnet werden. 
+
 \section{Verschlüsselungsschema}
 \label{sec:schema}
 
