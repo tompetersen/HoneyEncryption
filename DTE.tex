@@ -1,6 +1,6 @@
 \section{DTE}
 \label{sec:dte}
-Die DTE, Abkürzung für \emph{distribution-transforming encoder}, dient zum Abbilden einer Nachricht $M$ aus dem Message Space $\mathcal{M}$ auf einen Seed $S$ aus dem Seed Space $\mathcal{S}$. Gleichermaßen soll sie die Möglichkeit bieten, von einem Seed auf die ursprüngliche Nachricht abzubilden. Eine DTE ist also ein Tupel von Algorithmen
+Die DTE\footnote{Nach \url{http://leo.org} lässt sich \emph{DTE} mit \emph{Verteilungsumwandelnde Codiermaschine.} übersetzen, weshalb wir in dieser Ausarbeitung den femininen Genus für den Fachbegriff verwenden}, Abkürzung für \emph{distribution-transforming encoder}, dient zum Abbilden einer Nachricht $M$ aus dem Message Space $\mathcal{M}$ auf einen Seed $S$ aus dem Seed Space $\mathcal{S}$. Gleichermaßen soll sie die Möglichkeit bieten, von einem Seed auf die ursprüngliche Nachricht abzubilden. Eine DTE ist also ein Tupel von Algorithmen
 $$DTE = (encode, decode)$$
 wobei $encode$ einen meist randomisierten Algorithmus der Form $\mathcal{M} \rightarrow \mathcal{S}$ und $decode$ einen deterministischen Algorithmus der Form $\mathcal{S} \rightarrow \mathcal{M}$ beschreibt.
 
