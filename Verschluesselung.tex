@@ -34,8 +34,6 @@ In der Kryptographie werden insbesondere Einweg-Hashfunktionen eingesetzt. Bei d
 \subsubsection*{Blockchiffre}
 Bei Blockchiffren handelt es sich um symmetrische Verschlüsselungsalgorithmen, die Nachrichten in Blöcken fester Größe verschlüsseln. Es gilt \(\text{Enc}_K(M)=C\) und \(\text{Dec}_K(C)=M\). Hierbei steht \(M\) für die Nachricht, \(K\) für den Schlüssel, der verwendet wird, \(C\) für den Chiffretext und Enc bzw. Dec für die Ver- bzw. Entschlüsselung\cite{Schneier2006}.
 
-Enc/Dec(?) \textbf{mit DTE abstimmen}
-
 \subsubsection*{Betriebsmodi für Blockchiffren}
 Kryptographische Modi sind Verfahren, die das Verschlüsseln einer Nachricht per Blockchiffre beschreiben. Sie verknüpfen die Blockchiffre normalerweise mit einer Rückkopplung und wenigen einfachen Operationen. Beispiele für Modi sind CBC (Cipher Block Chaining - XOR-Verknüpfung des zuletzt erhaltenen Chiffretexts mit dem nächsten Klartextblock vor seiner Verschlüsselung) oder CTR (Counter Mode - Verschlüsselung eines Initialisierungsvektors und eines blockweise erhöhten Zählers mit dem Schlüssel und anschließende XOR-Verknüpfung des erhaltenen Zwischenschlüssels mit dem Klartextblock) \cite{Schneier2006}.
 

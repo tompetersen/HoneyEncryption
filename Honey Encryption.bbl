@@ -1,4 +1,4 @@
-\begin{thebibliography}{JR14b}
+\begin{thebibliography}{fSidI14}
 
 \bibitem[BN00]{AE2000}
 Mihir Bellare und Chanathip Namprempre.
@@ -6,6 +6,12 @@ Mihir Bellare und Chanathip Namprempre.
   the Generic Composition Paradigm}.
 \newblock In {\em Advances in Cryptology - ASIACRYPT 2000}. Springer Berlin
   Heidelberg, 2000.
+
+\bibitem[fSidI14]{BSI2014}
+Bundesamt für Sicherheit in~der Informationstechnik.
+\newblock {Technische Richtlinie: Kryptographische Verfahren: Empfehlungen und
+  Schlüssellängen}.
+\newblock TR-02102-1, Januar 2014.
 
 \bibitem[JR13]{ACM13}
 Ari Juels und Ronald~L. Rivest.
