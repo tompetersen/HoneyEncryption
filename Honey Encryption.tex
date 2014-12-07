@@ -7,11 +7,11 @@
 \usepackage{ngerman}
 \usepackage{graphicx}
 \usepackage{amsmath}
-\usepackage{hyperref}\urlstyle{rm}
 \usepackage{times}
 \usepackage[scaled]{helvet}
 \usepackage{a4wide}
 \usepackage{rotating}
+\usepackage{hyperref}\urlstyle{rm}
 
 \usepackage{listings}\lstset{breaklines=true,breakatwhitespace=true,frame=leftline,captionpos=b,xleftmargin=6ex,tabsize=4,numbers=left,numberstyle=\ttfamily\footnotesize,basicstyle=\ttfamily\footnotesize}
 \sloppy
@@ -22,21 +22,31 @@
 \begin{document}
 
 \newpage
+
 \thispagestyle{empty}
 \begin{center}\Large
 Universität Hamburg \par
 Fachbereich Informatik
 \vfill
-{\Large\textsf{\textbf{Hinweise für das Erscheinungsbild von Seminar-, Studien- und Bachelor-, Master- und Diplomarbeiten}}\par} 
-\bigskip
-am Arbeitsbereich Sicherheit in Verteilten Systemen (SVS) \par
-\bigskip
-Prof. Dr. Hannes Federrath \par
-\bigskip
-\today
+Seminararbeit
 \vfill
+{\Large\textsf{\textbf{Funktionsweise der Honey Encryption}}\par}
+\vfill
+vorgelegt von 
+\par\bigskip
+Konstantin Kobs \par
+geb. am \textbf{FEHLT NOCH} \par
+Matrikelnummer \textbf{FEHLT NOCH} \par
+Studiengang Informatik
+\par\bigskip
+Tom Petersen \par
+geb. am 13. Dezember 1990 in Hannover \par
+Matrikelnummer 6359640 \par
+Studiengang Informatik
+\vfill
+eingereicht am \today
 \vfill 
-(Muster für das Deckblatt: siehe letzte Seite dieser Hinweise)
+Betreuer: Prof. Dr.-Ing. Hannes Federrath \par
 \end{center}
 
 \newpage
@@ -63,7 +73,9 @@ Durch eine solche Zusammenfassung (im engl. auch Abstract genannt) am Anfang der
 
 \input{Fazit}
 
+\begingroup
+\let\itshape\upshape
 \bibliography{quellen}
-\bibliographystyle{alpha}
-
+\bibliographystyle{myalpha}
+\endgroup
 \end{document}

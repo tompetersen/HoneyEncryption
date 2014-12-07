@@ -1,37 +1,16 @@
-\section{Funktionsweise}
-\label{sec:funktionsweise}
+\section{Notationen}
 
-Hier sollte noch viel viel mehr stehen...
-
-\subsection{Verwendete Verfahren}
-
-\subsubsection{XOR}
-Die XOR-(Exklusiv-ODER-)Verknüpfung ist ein bitweiser Operator, der für zwei unterschiedliche Eingangsbits 1 ergibt und ansonsten 0. Seine besondere Bedeutung für die Kryptographie liegt in dem Zusammenhang \(K \oplus K = 0\) und somit \((M \oplus K) \oplus K = M\), dass heißt zweifache Verknüpfung von M mit dem Bitstring K ergibt wiederum M. Diese zweifache Verknüpfung lässt sich als Ver- und Entschlüsselung interpretieren, wie es beispielsweise beim OneTimePad geschieht \cite{Schneier2006}.%S.15-20
-
-\subsubsection{Hashfunktion}
-Eine Hashfunktion ist eine Funktion, die eine Eingabe variabler Länge auf einen String fester Länge abbildet.
-
-In der Kryptographie werden insbesondere Einweg-Hashfunktionen eingesetzt. Bei dieser Art von Hashfunktionen ist es leicht aus einer Eingabe den Hashwert zu berechnen, jedoch sehr schwer zu einem gegebenen Hashwert eine Eingabe zu finden die auf diesen Wert abgebildet wird \cite{Schneier2006}. Beispiele für heute verwendete Hashfunktionen sind MD5 und SHA256.
-
-\subsubsection{Blockchiffre}
-Bei Blockchiffren handelt es sich um symmetrische Verschlüsselungsalgorithmen, die Nachrichten in Blöcken fester Größe verschlüsseln. Es gilt \(\text{Enc}_K(M)=C\) und \(\text{Dec}_K(C)=M\). Hierbei steht \(M\) für die Nachricht, \(K\) für den Schlüssel, der verwendet wird, \(C\) für den Chiffretext und Enc bzw. Dec für die Ver- bzw. Entschlüsselung\cite{Schneier2006}.
-
-Enc/Dec(?) \textbf{mit DTE abstimmen}
-
-\subsubsection{Betriebsmodi für Blockchiffren}
-Kryptographische Modi sind Verfahren, die das Verschlüsseln einer Nachricht per Blockchiffre beschreiben. Sie verknüpfen die Blockchiffre normalerweise mit einer Rückkopplung und wenigen einfachen Operationen. Beispiele für Modi sind CBC (Cipher Block Chaining - XOR-Verknüpfung des zuletzt erhaltenen Chiffretexts mit dem nächsten Klartextblock vor seiner Verschlüsselung) oder CTR (Counter Mode - Verschlüsselung eines Initialisierungsvektors und eines blockweise erhöhten Zählers mit dem Schlüssel und anschließende XOR-Verknüpfung des erhaltenen Zwischenschlüssels mit dem Klartextblock) \cite{Schneier2006}.
-
-\subsubsection{Password Based Key Derivation Function}
-Password Based Key Derivation Functions leiten aus einem Passwort (und möglichen anderen Parametern) einen Schlüssel ab, der dann beispielsweise in symmetrischen Algorithmen weiter verwendet werden kann.
-
-Derzeitige Empfehlung ist die Verwendung von PBKDF2. Innerhalb dieses Algorithmus wird mehrfach eine pseudozufällige Funktion auf die Eingangswerte angewendet. Durch diese Erhöhung der Berechnungszeit steigt der Aufwand für Brute-Force-Angriffe auf Verschlüsselungen, die dieses Verfahren nutzen, stark an  \cite{pbkdf2000}.
-
-
-\subsection{Notationen}
-
-In den folgenden Kapiteln, in denen näher auf die Funktionsweise der Honey Encryption eingegegangen wird, werden folgende Notationen verwendet:
+In den folgenden Kapiteln, in denen auf die Funktionsweise der Honey Encryption eingegegangen wird, werden folgende Notationen verwendet:
 
 \begin{description}
+
+\item[\(\mathcal{M}\)] steht für den Message Space, also den Raum aller möglichen Nachrichten.
+
+\item[\(\mathcal{K}\)] steht für den Key Space, also den Raum aller möglichen Schlüssel.
+
+\item[\(\mathcal{C}\)] steht für den Raum aller möglichen Chiffretexte.
+
+\item[\(\mathcal{S}\)] steht für den Seed Space. Näheres dazu insbesondere in Kapitel \ref{sec:dte}.
 
 \item[\(\overset{<r>}{=}\)] steht für eine nicht-deterministische Zuweisung. Dies kann entweder komplett zufällig geschehen (wie bei Belegung von zufälligen Bitstrings) oder zumindestens vom Zufall mitbestimmt werden (wie bei der Kodierung einer Nachricht durch DTE).
 
@@ -44,5 +23,28 @@ In den folgenden Kapiteln, in denen näher auf die Funktionsweise der Honey Encr
 \item[\(\epsilon\)] steht für die leere Zeichenkette.
 
 \end{description}
+
+\newpage
+
+\section{Funktionsweise}
+\label{sec:funktionsweise}
+
+\textbf{Einiges von dem Folgenden könnte wahrscheinlich auch schon als Einleitung dastehen?!}
+
+Honey-Objekte werden in der IT-Sicherheit in vielfacher Weise zum Aufdecken, Abwehren oder Untersuchen von Angriffen auf Systeme genutzt. Am bekanntesten dürften die Honeypots sein - Server oder Programme, die Systeme simulieren, um Informationen über das Verhalten von Angreifern zu erlangen oder Einbrüche aufzudecken. Aber auch weniger bekannte Verfahren wie Honeydocuments, Honeyfiles oder Honeywords sind in diesem Bereich anzusiedeln. Grundsätzlich geht es hier darum, ein echtes Objekt zwischen Täuschungen (den Honey-Objekten) zu verstecken. 
+
+All diese Verfahren besitzen zwei Eigenschaften: Ununterscheidbarkeit, d.h. Honey-Objekte sollten nur schwer vom echten Objekt unterscheidbar sein, und Geheimhaltung, d.h. die bloße Kenntnis der Existenz von Honey-Objekten darf einem Angreifer auf das System keinen Vorteil bringen (frei nach dem Kerkhoffs'schen Prinzip: Nicht das Verfahren, sondern lediglich der Index des echten Objekts in der Liste aller Objekte ist geheim zu halten) \cite{SACMAT2014}.
+
+In \cite{EURO2014} stellen die Autoren Honey Encryption vor - ein neues Verfahren, dass die Nutzung von Honey-Objekten auf Passwort-basierte Verschlüsselung (\textit{Password-Based Encryption}, PBE) anwendet.
+
+\subsection{Passwort-basierte Verschlüsselung und die Brute-Force Bound}
+
+Grundsätzlich besteht ein PBE-Schema aus einer Verschlüsselungsfunktion \textit{Enc} und einer Entschlüsselungsfunktion \textit{Dec}. Eine Nachricht \(M\) wird mit einem Schlüssel \(K\) durch die Verschlüsselungsfunktion in den Chiffretext \(C\) überführt: \(\text{Enc}_K(M)=C\). Die Entschlüsselung erfolgt analog dazu: \(\text{Dec}_K(C)=M\). 
+
+Ein Angreifer, der außer \(C\) keine weiteren Informationen besitzt, wird versuchen per Brute-Force-Angriff (also durch rohes Durchprobieren aller möglichen Schlüssel) an die Nachricht \(M\) zu gelangen. Er wählt einen Schlüssel \(K' \in \mathcal{K}\) und bildet \(\text{Dec}_{K'}(C)=M'\). Durch die Nutzung von Authenticated Encryption (z.B. Encrypt-then-MAC \cite{AE2000}) erfährt der Angreifer sofort, ob er den richtigen Schlüssel gefunden hat. Bei diesen Verfahren wird schon vor der Entschlüsselung anhand eines Message Authentication Codes (MAC) überprüft, ob die verschlüsselte Nachricht nicht verändert wurde und der Schlüssel stimmt. Aber auch bei nicht authentifizierter Verschlüsselung lässt sich in den meisten Fällen leicht herausfinden, ob das versuchte Passwort \(K'\) korrekt war, also \(K'=K\) und damit auch \(M'=M\) gilt (z.B. weil bekannt ist, dass M natürlichsprachig ist, eine Primzahl darstellt, ...). 
+
+Dieser Brute-Force-Angriff wird dann zum Problem, wenn Schlüssel geringer Entropie gewählt werden und Angreifer damit in vielen Fällen nur wenige Versuche benötigen, um den richtigen Schlüssel zu finden\footnote{So erwähnt \cite{IEEE2014} beispielsweise den Diebstahl von 32 Millionen Klartext-Passwörtern von Kunden der Firma RockYou im Dezember 2009. Hierbei stellte sich heraus, dass in etwa ein Prozent der Fälle 123456 als Passwort gewählt worden war und auch andere ähnlich schwache Passwörter häufig vertreten waren.}. Durch Verfahren wie Salting (siehe \cite{Schneier2006}) oder mehrfache Anwendung beispielsweise von Hashfunktionen bei der Zwischenschlüsselgenerierung (vergleiche \cite{pbkdf2000}) lässt sich diese Art von Angriffen zwar verlangsamen, aber nicht aufhalten. Es lässt sich zeigen, dass eine PBE-verschlüsselte Nachricht mit Wahrscheinlichkeit \(\frac{q}{c \cdot 2^{\mu}}\) per Brute-Force entschlüsselt werden kann, wobei \(q\) für die Anzahl der Versuche, \(c\) als verfahrensabhängige Konstante und \(\mu\) für die Min-Entropie der Passwortverteilung \(p_k\) steht. Diese Wahrscheinlichkeit bezeichnet \cite{EURO2014} als \textit{Brute-Force Bound} und gibt weiterhin \(\mu<7\) für realistische Passwortverteilungen an. Diese Grenze ist selbst bei Erhöhung von \(c\) durch  oben erwähnte Verfahren sehr gering.
+
+
 
 \newpage

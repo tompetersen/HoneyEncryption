@@ -6,26 +6,47 @@ Bei RSA handelt es sich um einen asymmetrischen Verschlüsselungsalgorithmus, d.
 
 Bei SSH lässt sich Honey Encryption jedoch anwenden. In diesem Fall wird der öffentliche Schlüssel zum Zweck der Authentifizierung auf dem Server gespeichert, den man erreichen möchte (und steht somit dem Angreifer nicht zur Verfügung). Der private Schlüssel (genauer \(p\) und \(q\) zusammen mit weiteren berechneten Werten, um die Ver- bzw. Entschlüsselung nach dem Chinesischen Restsatz zu erleichtern) wird verschlüsselt auf dem Clientsystem gespeichert. 
 
-Zur Erstellung einer DTE für RSA-Schlüssel muss betrachtet werden, wie die Primzahlen \(p\) und \(q\) (im Folgenden werden Primzahlen aus dem Intervall \([2^{l-1},2^l)\) gefordert) bezogen werden. Normalerweise werden zufällige Zahlen aus dem Intervall gezogen und durch einen Primzahltest (Miller-Rabin-Test) wird überprüft, ob es sich dabei um Primzahlen handelt. DIes wird solange wiederholt, bis man zwei Primzahlen gefunden hat. 
+Zur Erstellung einer DTE für RSA-Schlüssel muss betrachtet werden, wie die Primzahlen \(p\) und \(q\) (im Folgenden werden Primzahlen aus dem Intervall \([2^{l-1},2^l)\) gefordert) erhalten werden. Normalerweise werden zufällige Zahlen aus dem Intervall gezogen und durch einen Primzahltest (Miller-Rabin-Test) wird überprüft, ob es sich dabei um Primzahlen handelt. DIes wird solange wiederholt, bis man zwei Primzahlen gefunden hat. 
 
-Ein naiver Ansatz für eine DTE wäre es, die beiden gefundenen Primzahlen als \((l-2)\)-Bitstrings zu dekodieren (die auf jeden Fall vorhandene führende 1 ist implizit und wird ausgelassen). Da jedoch bei der Entschlüsselung dann auch nicht Primzahlen entstehen würden (und zwar nach dem Primzahlsatz mit etwa Wahrscheinlichkeit \(1-\frac{1}{l}\)), würde ein Angreifer viele Ausgaben von vornherein als "falsch" erkennen können.
+Ein naiver Ansatz für eine DTE wäre es, die beiden gefundenen Primzahlen als \((l-2)\)-Bitstrings zu dekodieren (die auf jeden Fall vorhandene führende 1 ist implizit und wird ausgelassen). Da jedoch bei der Entschlüsselung dann auch Nicht-Primzahlen entstehen würden (und zwar nach dem Primzahlsatz mit etwa Wahrscheinlichkeit \(1-\frac{1}{l}\)), würde ein Angreifer viele Ausgaben von vornherein als "falsch" erkennen können.
 
-Daher schlägt \cite{EURO2014} ein anderes Vorgehen vor. Zur Kodierung von \(p\) und \(q\) wird ein Vektor vonj \(t\) zufälligen \((l-2)\)-Bitstrings angelegt. Per Primzahltest werden die Zahlen überprüft. Die ersten beiden Primzahlen in dem Vektor werden durch \(p\) und \(q\) ersetzt. Enthält der Vektor nur eine Primzahl, so wird diese durch \(p\) und die letzte Zahl durch \(q\) ersetzt. Enthält der Vektor keine Primzahlen, so ersetzen \(p\) und \(q\) die letzten beiden Zahlen. Beim Dekodieren werden die ersten beiden Primzahlen im Vektor ausgegeben. Wenn der Vektor keine zwei Primzahlen enthält so werden fest kodierte Proimzahlen ausgegeben.
+Daher schlägt \cite{EURO2014} ein anderes Vorgehen vor. Zur Kodierung von \(p\) und \(q\) wird ein Vektor von \(t\) zufälligen \((l-2)\)-Bitstrings angelegt. Per Primzahltest werden die Zahlen überprüft. Die ersten beiden Primzahlen in dem Vektor werden durch \(p\) und \(q\) ersetzt. Enthält der Vektor nur eine Primzahl, so wird diese durch \(p\) und die letzte Zahl durch \(q\) ersetzt. Enthält der Vektor keine Primzahlen, so ersetzen \(p\) und \(q\) die letzten beiden Zahlen. Beim Dekodieren werden die ersten beiden Primzahlen im Vektor ausgegeben. Wenn der Vektor keine zwei Primzahlen enthält, so werden fest kodierte Primzahlen ausgegeben.
 
-Es lässt sich zeigen, dass ein Angreifer, der versucht \(p\) und \(q\) per Brute-Force-Angriff zu erhalten, eine  Erfolgswahrscheinlichkeit von höchstens \((1-\frac{2}{3l})^{t-1}\) besitzt (ebenfalls \cite{EURO2014}). Damit lässt sich also die Erfolgswahrscheinlichkeit des Angreifers durch Nutzung eines größeren Vektors verringern (allerdings auf Kosten von größerem Speicherplatzbedarfs).
+Es lässt sich zeigen, dass ein Angreifer, der versucht \(p\) und \(q\) per Brute-Force-Angriff zu erhalten, eine  Erfolgswahrscheinlichkeit von höchstens \((1-\frac{2}{3l})^{t-1}\) besitzt (ebenfalls \cite{EURO2014}). Damit lässt sich diese Wahrscheinlichkeit also durch Nutzung eines größeren Vektors verringern (allerdings auf Kosten größerem Speicherplatzbedarfs).
 
-Ein anderer Ansatz, der in \cite{EURO2014} erwähnt wird, wäre die Kodierung des Seeds/Keys, der zur Initialisierung des Zufallszahlengenerators verwendet wurde, um \(p\) und \(q\) zu generieren. Eine DTE wäre trivial, da es sich bei dem Seed/Key im Allgemeinen um einen kurzen, zufällig gleichverteilten String handelt. 
+Ein anderer Ansatz, der in \cite{EURO2014} erwähnt wird, wäre die Kodierung des Seeds/Keys, der zur Initialisierung des Zufallszahlengenerators verwendet wurde, um \(p\) und \(q\) zu generieren. Eine DTE wäre trivial, da es sich bei dem Seed/Key im Allgemeinen um einen kurzen, zufällig gleichverteilten Bitstring handelt. 
 
 \section{Verschlüsselungsschema}
 \label{sec:schema}
 
-Nachdem eine Nachricht aus dem Message Space - wie in Kapitel \ref{sec:dte} beschrieben - durch eine DTE auf den Seed Space abgebildet wurde, folgt die Verschlüsselung des Ergebnisses. Hierfür schlägt \cite{EURO2014} zwei verschiedene Vorgehensweisen vor. Die unter Verwendung dieser Vorgehensweisen entstehenden Honey Encryption-Schemata werden im Folgenden dargestellt.
+Nachdem eine Nachricht aus dem Message Space - wie in Kapitel \ref{sec:dte} beschrieben - durch eine DTE auf den Seed Space abgebildet wurde, folgt die Verschlüsselung des Ergebnisses. Hierfür schlägt \cite{EURO2014} zwei verschiedene Vorgehensweisen vor. Die unter Verwendung dieser Vorgehensweisen entstehenden Honey Encryption-Schemata werden im Folgenden dargestellt. Zuvor wird noch kurz auf die in den Schemata verwendeten Verfahren eingegangen.
+
+\subsection{Verwendete Verfahren}
+
+\subsubsection*{XOR}
+Die XOR-(Exklusiv-ODER-)Verknüpfung ist ein bitweiser Operator, der für zwei unterschiedliche Eingangsbits 1 ergibt und ansonsten 0. Seine besondere Bedeutung für die Kryptographie liegt in dem Zusammenhang \(K \oplus K = 0\) und somit \((M \oplus K) \oplus K = M\), dass heißt zweifache Verknüpfung von M mit dem Bitstring K ergibt wiederum M. Diese zweifache Verknüpfung lässt sich als Ver- und Entschlüsselung interpretieren, wie es beispielsweise beim OneTimePad geschieht \cite{Schneier2006}.%S.15-20
+
+\subsubsection*{Hashfunktion}
+Eine Hashfunktion ist eine Funktion, die eine Eingabe variabler Länge auf einen String fester Länge abbildet.
+
+In der Kryptographie werden insbesondere Einweg-Hashfunktionen eingesetzt. Bei dieser Art von Hashfunktionen ist es leicht aus einer Eingabe den Hashwert zu berechnen, jedoch sehr schwer zu einem gegebenen Hashwert eine Eingabe zu finden, die auf diesen Wert abgebildet wird \cite{Schneier2006}. Beispiele für heute verwendete Hashfunktionen sind MD5 und SHA256.
+
+\subsubsection*{Blockchiffre}
+Bei Blockchiffren handelt es sich um symmetrische Verschlüsselungsalgorithmen, die Nachrichten in Blöcken fester Größe verschlüsseln. Es gilt \(\text{Enc}_K(M)=C\) und \(\text{Dec}_K(C)=M\). Hierbei steht \(M\) für die Nachricht, \(K\) für den Schlüssel, der verwendet wird, \(C\) für den Chiffretext und Enc bzw. Dec für die Ver- bzw. Entschlüsselung\cite{Schneier2006}.
+
+Enc/Dec(?) \textbf{mit DTE abstimmen}
+
+\subsubsection*{Betriebsmodi für Blockchiffren}
+Kryptographische Modi sind Verfahren, die das Verschlüsseln einer Nachricht per Blockchiffre beschreiben. Sie verknüpfen die Blockchiffre normalerweise mit einer Rückkopplung und wenigen einfachen Operationen. Beispiele für Modi sind CBC (Cipher Block Chaining - XOR-Verknüpfung des zuletzt erhaltenen Chiffretexts mit dem nächsten Klartextblock vor seiner Verschlüsselung) oder CTR (Counter Mode - Verschlüsselung eines Initialisierungsvektors und eines blockweise erhöhten Zählers mit dem Schlüssel und anschließende XOR-Verknüpfung des erhaltenen Zwischenschlüssels mit dem Klartextblock) \cite{Schneier2006}.
+
+\subsubsection*{Password Based Key Derivation Function}
+Password Based Key Derivation Functions leiten aus einem Passwort (und möglichen anderen Parametern) einen Schlüssel ab, der dann beispielsweise in symmetrischen Algorithmen weiter verwendet werden kann.
+
+Derzeitige Empfehlung ist die Verwendung von PBKDF2. Innerhalb dieses Algorithmus wird mehrfach eine pseudozufällige Funktion auf die Eingangswerte angewendet. Durch diese Erhöhung der Berechnungszeit steigt der Aufwand für Brute-Force-Angriffe auf Verschlüsselungen, die dieses Verfahren nutzen, stark an  \cite{pbkdf2000}.
 
 \subsection{Hashbasierte Verschlüsselung}
 
 Das erste Verfahren nutzt zur Verschlüsselung die XOR-Verknüpfung des aus der Nachricht erhaltenen Seeds \(S\) mit einem Hash des Schlüssels \(K\) (Abbildung \ref{fig:HashEnc}).  
-
-Nach der Kodierung der Nachricht durch die DTE wird der Schlüssel zum Erschweren von Brute-Force-Angriffen durch eine Password Based Key Derivation Function auf den Bitstring \(K_D\) abgebildet. Es wird ein zufälliger Bitstring \(R\) gewählt, der zusammen mit \(K_D\) durch die Hashfunktion HF auf \(H\) abgebildet wird. Dieser zufällige Bitstring sorgt dafür, dass auch bei der Verschlüsselung gleicher Nachrichten mit gleichem Schlüssel unterschiedliche Chiffretexte entstehen. Er kann je nach Anwendung in der Länge \(k\) variiert werden. Der errechnete Hash \(H\) wird nun mit dem im ersten Schritt erhaltenen Seed \(S\) XOR-verknüpft und bildet den Chiffretext \(C\). Dieser kann nun zusammen mit dem Bitstring \(R\) gespeichert oder übertragen werden. 
 
 \begin{figure}[h]
 	\begin{minipage}[b]{0.5\textwidth}
@@ -55,11 +76,15 @@ Nach der Kodierung der Nachricht durch die DTE wird der Schlüssel zum Erschwere
 	\end{minipage}
 \end{figure}
 
+Nach der Kodierung der Nachricht durch die DTE wird der Schlüssel zum Erschweren von Brute-Force-Angriffen durch eine Password Based Key Derivation Function auf den Bitstring \(K_D\) abgebildet. Es wird ein zufälliger Bitstring \(R\) gewählt, der zusammen mit \(K_D\) durch die Hashfunktion HF auf \(H\) abgebildet wird. Dieser zufällige Bitstring sorgt dafür, dass auch bei der Verschlüsselung gleicher Nachrichten mit gleichem Schlüssel unterschiedliche Chiffretexte entstehen. Er kann je nach Anwendung in der Länge \(k\) variiert werden. Der errechnete Hash \(H\) wird nun mit dem im ersten Schritt erhaltenen Seed \(S\) XOR-verknüpft und bildet den Chiffretext \(C\). Dieser kann nun zusammen mit dem Bitstring \(R\) gespeichert oder übertragen werden. 
+
 Zur Entschlüsselung wird das Verfahren in ähnlicher Weise durchlaufen (Abbildung \ref{fig:HashDec}). Der Schlüssel \(K\) wird wie bei der Verschlüsselung durch eine Password Based Key Derivation Function auf den Bitstring \(K_D\) abgebildet. Zusammen mit dem übergebenen Bitstring \(R\) wird durch HF der Hash \(H\) gebildet. Durch eine XOR-Verknüpfung von \(H\) mit \(C\) erhält man den ursprünglichen Seed \(S\). Dieser kann dann durch die DTE  dekodiert werden und es ergibt sich wieder die Nachricht \(M\).
 
 \subsection{Auf Blockchiffren basierte Verschlüsselung}
 
-Für die Verschlüsselung können jedoch auch Blockchiffren genutzt werden. Im Folgenden wird das Schema unter Nutzung einer Blockchiffre mit dem CTR-Modus skizziert. Andere Betriebsmodi sollten ebenfalls nutzbar sein (so erwähnt \cite{EURO2014} explizit den CBC-Modus), jedoch müssten im Einzelfall Einschränkungen, wie Blocklänge oder eventuell notwendiges Padding, beachtet werden. 
+Für die Verschlüsselung können jedoch auch Blockchiffren genutzt werden. Hierbei muss jedoch beachtet werden, dass der Eingangsraum der Blockchiffre gleich dem Seed Space sein muss und alle Ciphertexte unter allen möglichen Schlüsseln zu Werten aus dem Seed Space entschlüsselt werden müssen.
+
+Im Folgenden wird das Schema unter Nutzung einer Blockchiffre mit dem CTR-Modus skizziert. Andere Betriebsmodi sollten ebenfalls nutzbar sein. So erwähnt \cite{EURO2014} explizit den CBC-Modus, weist jedoch auch darauf hin, dass die Länge eines Seeds in diesem Fall ein Vielfaches der Blocklänge der Blockchiffre sein muss, so dass kein Padding benötigt wird. 
 
 \begin{figure}[h]
 	\begin{minipage}[b]{0.5\textwidth}
