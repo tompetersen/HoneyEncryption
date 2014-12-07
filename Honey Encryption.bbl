@@ -7,6 +7,11 @@ Mihir Bellare und Chanathip Namprempre.
 \newblock In {\em Advances in Cryptology - ASIACRYPT 2000}. Springer Berlin
   Heidelberg, 2000.
 
+\bibitem[JR13]{ACM13}
+Ari Juels und Ronald~L. Rivest.
+\newblock {Honeywords: Making Password-Cracking Detectable}.
+\newblock In {\em Proceedings ACM CCS'13}, Berlin, Germany, November 2013.
+
 \bibitem[JR14a]{IEEE2014}
 Ari Juels und Thomas Ristenpart.
 \newblock {Honey Encryption - Encryption beyond the Brute-Force Barrier}.

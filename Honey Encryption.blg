@@ -1,11 +1,16 @@
 This is BibTeX, Version 0.99dThe top-level auxiliary file: Honey Encryption.aux
 The style file: myalpha.bst
 Database file #1: quellen.bib
-I was expecting a `,' or a `}'---line 36 of file quellen.bib
+You're missing a field name---line 26 of file quellen.bib
+ :     
+ :     %pages =     { 145--159 }
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+I was expecting a `,' or a `}'---line 46 of file quellen.bib
  :  
  :  %,pages={531-545}
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
 Warning--I didn't find a database entry for "BSI2014"
 Warning--empty institution in pbkdf2000
-(There was 1 error message)
+(There were 2 error messages)
