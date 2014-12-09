@@ -6,25 +6,26 @@ Bei RSA handelt es sich um einen asymmetrischen Verschlüsselungsalgorithmus, d.
 
 Bei SSH lässt sich Honey Encryption jedoch anwenden. In diesem Fall wird der öffentliche Schlüssel zum Zweck der Authentifizierung auf dem Server gespeichert, den man erreichen möchte (und steht somit dem Angreifer nicht zur Verfügung). Der private Schlüssel (genauer \(p\) und \(q\) zusammen mit weiteren berechneten Werten, um die Ver- bzw. Entschlüsselung nach dem Chinesischen Restsatz zu erleichtern) wird verschlüsselt auf dem Clientsystem gespeichert. 
 
-Zur Erstellung einer DTE für RSA-Schlüssel muss betrachtet werden, wie die Primzahlen \(p\) und \(q\) (im Folgenden werden Primzahlen aus dem Intervall \([2^{l-1},2^l)\) gefordert) erhalten werden. Normalerweise werden zufällige Zahlen aus dem Intervall gezogen und durch einen Primzahltest (Miller-Rabin-Test) wird überprüft, ob es sich dabei um Primzahlen handelt. DIes wird solange wiederholt, bis man zwei Primzahlen gefunden hat. 
+Zur Erstellung einer DTE für RSA-Schlüssel muss betrachtet werden, wie die Primzahlen \(p\) und \(q\) (im Folgenden werden Primzahlen aus dem Intervall \([2^{l-1},2^l)\) gefordert) erhalten werden. Normalerweise werden zufällige Zahlen aus dem Intervall gewählt und durch einen Primzahltest (Miller-Rabin-Test) auf Primzahleigenschaften hin überprüft. Dies wird solange wiederholt, bis man zwei Primzahlen gefunden hat. 
 
+% FÜHRENDE EINS? STEHT DIE NICHT IMMER AM ENDE?
 Ein naiver Ansatz für eine DTE wäre es, die beiden gefundenen Primzahlen als \((l-2)\)-Bitstrings zu dekodieren (die auf jeden Fall vorhandene führende 1 ist implizit und wird ausgelassen). Da jedoch bei der Entschlüsselung dann auch Nicht-Primzahlen entstehen würden (und zwar nach dem Primzahlsatz mit etwa Wahrscheinlichkeit \(1-\frac{1}{l}\)), würde ein Angreifer viele Ausgaben von vornherein als "falsch" erkennen können.
 
 Daher schlägt \cite{EURO2014} ein anderes Vorgehen vor. Zur Kodierung von \(p\) und \(q\) wird ein Vektor von \(t\) zufälligen \((l-2)\)-Bitstrings angelegt. Per Primzahltest werden die Zahlen überprüft. Die ersten beiden Primzahlen in dem Vektor werden durch \(p\) und \(q\) ersetzt. Enthält der Vektor nur eine Primzahl, so wird diese durch \(p\) und die letzte Zahl durch \(q\) ersetzt. Enthält der Vektor keine Primzahlen, so ersetzen \(p\) und \(q\) die letzten beiden Zahlen. Beim Dekodieren werden die ersten beiden Primzahlen im Vektor ausgegeben. Wenn der Vektor keine zwei Primzahlen enthält, so werden fest kodierte Primzahlen ausgegeben.
 
-Es lässt sich zeigen, dass ein Angreifer, der versucht \(p\) und \(q\) per Brute-Force-Angriff zu erhalten, eine  Erfolgswahrscheinlichkeit von höchstens \((1-\frac{2}{3l})^{t-1}\) besitzt (ebenfalls \cite{EURO2014}). Damit lässt sich diese Wahrscheinlichkeit also durch Nutzung eines größeren Vektors verringern (allerdings auf Kosten größerem Speicherplatzbedarfs).
+Es lässt sich zeigen, dass ein Angreifer, der versucht \(p\) und \(q\) per Brute-Force-Angriff zu erhalten, eine Erfolgswahrscheinlichkeit von höchstens \((1-\frac{2}{3l})^{t-1}\) besitzt (ebenfalls \cite{EURO2014}). Damit lässt sich diese Wahrscheinlichkeit also durch Nutzung eines größeren Vektors verringern (allerdings auf Kosten größeres Speicherplatzbedarfs).
 
 Ein anderer Ansatz, der in \cite{EURO2014} erwähnt wird, wäre die Kodierung des Seeds/Keys, der zur Initialisierung des Zufallszahlengenerators verwendet wurde, um \(p\) und \(q\) zu generieren. Eine DTE wäre trivial, da es sich bei dem Seed/Key im Allgemeinen um einen kurzen, zufällig gleichverteilten Bitstring handelt. 
 
 \section{Verschlüsselungsschema}
 \label{sec:schema}
 
-Nachdem eine Nachricht aus dem Message Space - wie in Kapitel \ref{sec:dte} beschrieben - durch eine DTE auf den Seed Space abgebildet wurde, folgt die Verschlüsselung des Ergebnisses. Hierfür schlägt \cite{EURO2014} zwei verschiedene Vorgehensweisen vor. Die unter Verwendung dieser Vorgehensweisen entstehenden Honey Encryption-Schemata werden im Folgenden dargestellt. Zuvor wird noch kurz auf die in den Schemata verwendeten Verfahren eingegangen.
+Nachdem eine Nachricht aus dem Message Space --- wie in Kapitel \ref{sec:dte} beschrieben --- durch eine DTE auf den Seed Space abgebildet wurde, folgt die Verschlüsselung des Ergebnisses. Hierfür schlägt \cite{EURO2014} zwei verschiedene Vorgehensweisen vor. Die unter Verwendung dieser Vorgehensweisen entstehenden Honey Encryption-Schemata werden im Folgenden dargestellt. Zuvor wird noch kurz auf die in den Schemata verwendeten Verfahren eingegangen.
 
 \subsection{Verwendete Verfahren}
 
 \subsubsection*{XOR}
-Die XOR-(Exklusiv-ODER-)Verknüpfung ist ein bitweiser Operator, der für zwei unterschiedliche Eingangsbits 1 ergibt und ansonsten 0. Seine besondere Bedeutung für die Kryptographie liegt in dem Zusammenhang \(K \oplus K = 0\) und somit \((M \oplus K) \oplus K = M\), dass heißt zweifache Verknüpfung von M mit dem Bitstring K ergibt wiederum M. Diese zweifache Verknüpfung lässt sich als Ver- und Entschlüsselung interpretieren, wie es beispielsweise beim OneTimePad geschieht \cite{Schneier2006}.%S.15-20
+Die XOR-(Exklusiv-ODER-)Verknüpfung ist ein bitweiser Operator, der für zwei unterschiedliche Eingangsbits $1$ ergibt und ansonsten $0$. Seine besondere Bedeutung für die Kryptographie liegt in dem Zusammenhang \(K \oplus K = 0\) und somit \((M \oplus K) \oplus K = M\), dass heißt zweifache Verknüpfung von M mit dem Bitstring K ergibt wiederum M. Diese zweifache Verknüpfung lässt sich als Ver- und Entschlüsselung interpretieren, wie es beispielsweise beim One Time Pad geschieht \cite{Schneier2006}.%S.15-20
 
 \subsubsection*{Hashfunktion}
 Eine Hashfunktion ist eine Funktion, die eine Eingabe variabler Länge auf einen String fester Länge abbildet.
