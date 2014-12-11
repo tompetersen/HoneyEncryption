@@ -1,18 +1,18 @@
 \section{DTE}
 \label{sec:dte}
-Die DTE\footnote{Nach \url{http://leo.org} lässt sich \emph{DTE} mit \emph{Verteilungsumwandelnde Codiermaschine} übersetzen, weshalb wir in dieser Ausarbeitung den femininen Genus für den Fachbegriff verwenden.}, Abkürzung für \emph{distribution-transforming encoder}, dient zum Abbilden einer Nachricht $M$ aus dem Message Space $\mathcal{M}$ auf einen Seed $S$ aus dem Seed Space $\mathcal{S}$. Gleichermaßen soll sie die Möglichkeit bieten, von einem Seed auf die ursprüngliche Nachricht abzubilden. Eine DTE ist also ein Tupel von Algorithmen
+Die DTE\footnote{\emph{DTE} lässt sich mit \emph{Verteilungsumwandelnde Codiermaschine} übersetzen, weshalb wir in dieser Ausarbeitung den femininen Genus für den Fachbegriff verwenden.}, Abkürzung für \emph{distribution-transforming encoder}, dient zum Abbilden einer Nachricht $M$ aus dem Message Space $\mathcal{M}$ auf einen Seed $S$ aus dem Seed Space $\mathcal{S}$. Gleichermaßen soll sie die Möglichkeit bieten, von einem Seed auf die ursprüngliche Nachricht abzubilden. Eine DTE ist also ein Tupel von Algorithmen
 $$DTE = (encode, decode)$$
 wobei $encode$ einen meist randomisierten Algorithmus der Form $\mathcal{M} \rightarrow \mathcal{S}$ und $decode$ einen deterministischen Algorithmus der Form $\mathcal{S} \rightarrow \mathcal{M}$ beschreibt.
 
 Ein DTE-Schema $(encode, decode)$ wird als \emph{korrekt} bezeichnet, wenn für jede Nachricht $M \in \mathcal{M}$, die mit $encode$ in den Seed Space $\mathcal{S}$ und mit $decode$ anschließend wieder in den Message Space $\mathcal{M}$ abgebildet wird, das Resultat wieder die ursprüngliche Nachricht $M$  ist. Formal kann dies geschrieben werden als
-$$P(decode(encode(M)) = M) = 1 \qquad f.a. M \in \mathcal{M}$$
+$$P(decode(encode(M)) = M) = 1 \qquad \forall M \in \mathcal{M}$$
 wobei P ein Maß für die Wahrscheinlichkeit für das in den Klammern stehende Ereignis ist.
 
 Bei der Konstruktion einer DTE ist die Korrektheit nicht das einzige Kriterium, welches es zu beachten gilt. Wichtig ist ebenfalls, die Verteilung der Wahrscheinlichkeiten der Nachrichten im Message Space zu kennen. Sie wird mit $p_m$ bezeichnet. Entsprechend dieser Wahrscheinlichkeiten wird einer Nachricht eine Anzahl von Seeds zur Kodierung zugewiesen. Je wahrscheinlicher eine Nachricht ist, desto mehr Seeds werden ihr zugewiesen.
 
 Bei der Verschlüsselung einer Nachricht $M \in \mathcal{M}$ weist der Algorithmus $encode$ dieser Nachricht einen Seed entsprechend ihrer Wahrscheinlichkeit zu. Da es jedoch mehr als einen Seed zu einer Nachricht geben kann, handelt es sich bei $encode$ um einen randomisierten Algorithmus, der zufällig und gleichverteilt einen der möglichen Seeds auswählt. Da diese Kodierungs-Methode nicht deterministisch ist, handelt es sich bei $encode$ um keine Funktion oder Abbildung im mathematischen Sinne. Der Begriff \emph{Abbildung} ist dennoch eine passende Umschreibung für das Vorgehen zur Kodierung der Nachricht, mit einem Seed als Resultat.
 
-Jede Nachricht kann also durch mehr als einen Seed dargestellt werden, allerdings verweist jeder Seed auf genau eine Nachricht (zu sehen in Abbildung \ref{fig:dte}).
+Jede Nachricht kann also durch mehr als einen Seed dargestellt werden, aber jeder Seed verweist auf genau eine Nachricht (zu sehen in Abbildung \ref{fig:dte}).
 
 \begin{figure}[!h]
 Seed Space und Message Space anzeigen und Pfeile einmalen
@@ -24,9 +24,7 @@ Somit ist leicht zu erkennen, dass es sich bei $decode$ um einen deterministisch
 
 Wie schon beschrieben, sollte die Wahrscheinlichkeitsverteilung der Nachrichten so gut wie möglich durch die DTE nachgeahmt werden. Juels und Ristenpart \cite{EURO2014} führen hierfür eine neue Verteilung $p_d$ ein --- die Verteilung, die die DTE über den Message Space $\mathcal{M}$ erzeugt. Diese wird definiert als die Wahrscheinlichkeit, dass zufällig und gleichverteilt gewählte Seeds durch die $decode$-Funktion auf eine bestimmte Nachricht $M$ abgebildet wird.
 
-$$p_d(M) = P(M' = M : U \xleftarrow{\$} \mathcal{S} ; M' \leftarrow decode(S))$$
-
-$U \xleftarrow{\$} \mathcal{S}$ bedeutet, dass die Seeds \textbf{u}niform, also gleichverteilt sind.
+$$p_d(M) = P(M' = M : S \overset{<r>}{=} \mathcal{S} ; M' = decode(S))$$
 
 Eine intuitivere Definition von $p_d$ wäre
 
@@ -38,7 +36,7 @@ Bei der Erstellung einer DTE sollte darauf geachtet werden, dass $p_d \approx p_
 
 \subsection{Generierung einer DTE mithilfe der Inversionsmethode}
 
-Ein mögliches Vorgehen zur Erstellung einer DTE, die von Juels und Ristenpart \cite{EURO2014} vorgeschlagen wird, ist die Nutzung der sogenannten Inverse Sampling Methode, zu Deutsch Inversionsmethode. Sie wird in der Informatik und Stochastik angewendet, ``um aus gleichverteilten Zufallszahlen andere Wahrscheinlichkeitsverteilungen zu erzeugen.'' \cite{WIKIInv} Meist wird dieses Verfahren in der Informatik für die Simulation von Zufallsvariablen, wie beispielsweise dem Monte-Carlo-Verfahren, verwendet. Dabei wird einer Rechteckverteilung $R(0,1)$ eine neue Wahrscheinlichkeitsverteilung zugewiesen. So kann ein Computer Zufallszahlen erzeugen, die in einer beliebigen, neuen Verteilung liegen, als die normalerweise von ihm generierbaren Zahlen im Intervall $[0,1)$.
+Ein mögliches Vorgehen zur Erstellung einer DTE, die von Juels und Ristenpart \cite{EURO2014} vorgeschlagen wird, ist die Nutzung der sogenannten Inverse Sampling Methode, zu Deutsch Inversionsmethode. Sie wird in der Informatik und Stochastik angewendet, ``um aus gleichverteilten Zufallszahlen andere Wahrscheinlichkeitsverteilungen zu erzeugen.'' \cite{WIKIInv} Meist wird dieses Verfahren in der Informatik für die Simulation von Zufallsvariablen, wie beispielsweise dem Monte-Carlo-Verfahren, verwendet. Dabei wird einer Rechteckverteilung $R(0,1)$ eine neue Wahrscheinlichkeitsverteilung zugewiesen. So kann ein Computer Zufallszahlen erzeugen, die in einer beliebigen, neuen Verteilung liegen, im Gegensatz zu den normalerweise von ihm generierbaren Zahlen im Intervall $[0,1)$.
 
 Wie schon beschrieben wurde, muss für die Generierung einer DTE $p_m$, also die Wahrscheinlichkeitsverteilung für die Nachrichten des Message Spaces, bekannt sein. Nach den Regeln der Stochastik hat jede Nachricht eine Wahrscheinlichkeit im Intervall $(0,1)$, wobei die Summe aller Wahrscheinlichkeiten gleich $1$ sein muss. Es sei hier explizit darauf hingewiesen, dass die Intervallränder $0$ und $1$ als Wahrscheinlichkeiten für Nachrichten ungeeignet sind. Gilt nämlich für eine Nachricht $M \in \mathcal{M}$ $P(M) = 0$, dann ist das Vorkommen dieser Nachricht nicht möglich und sollte somit gar nicht beachtet werden. Ein Vorkommen im Message Space ist damit überflüssig. Gilt andererseits für $M$ $P(M) = 1$, so ist dies die einzig mögliche Nachricht. Dann ist es nicht sinnvoll, Honey Encryption zu verwenden, da ein potentieller Angreifer zum eindeutigen Entschlüsseln nicht einmal den Ciphertext kennen müsste. Der Angriff wäre trivial.
 
@@ -54,7 +52,7 @@ Visualisierung
 \label{fig:Verteilungsfunktion}
 \end{figure}
 
-Sei nun der Wertebereich aller Seeds $S \in \mathcal{S}$ das Intervall $[0,1)$. Ein Seed $S$ wird dann in seine Ursprungsnachricht zurückgeführt (\emph{decode}-Algorithmus), indem die Nachricht $M_i$ gefunden wird, für die $F_m(M_{i-1}) \leq S < F_m(M_i)$ gilt. Wenn als Beispiel der Seed zwischen der Summe der ersten 5 und 6 Nachrichtenwahrscheinlichkeiten liegt, dann gibt der \emph{decode}-Algorithmus als ursprüngliche Nachricht zurück. Eine anders geschriebene und leichter in Programmen umsetzbare Schreibweise der Übersetzung von Seed in Nachricht ist
+Sei nun der Wertebereich aller Seeds $S \in \mathcal{S}$ das Intervall $[0,1)$. Ein Seed $S$ wird dann in seine Ursprungsnachricht zurückgeführt (\emph{decode}-Algorithmus), indem die Nachricht $M_i$ gefunden wird, für die $F_m(M_{i-1}) \leq S < F_m(M_i)$ gilt. Wenn als Beispiel der Seed zwischen der Summe der ersten 5 und 6 Nachrichtenwahrscheinlichkeiten liegt, dann gibt der \emph{decode}-Algorithmus $M_6$ als ursprüngliche Nachricht zurück. Eine anders geschriebene und leichter in Programmen umsetzbare Schreibweise der Übersetzung von Seed in Nachricht ist
 
 $$min_i\{F_m(M_i) > S\}$$
 
@@ -70,7 +68,7 @@ Es ist an der anschaulichen Darstellung unschwer zu erkennen, dass die Verteilun
 
 Bisher wurde der \emph{decode}-Algorithmus betrachtet. Der \emph{encode}-Algorithmus ist ähnlich anschaulich zu erklären. Dieses Mal wird eine Nachricht gewählt, die auf dem Maßband liegt. Der Bereich an Werten auf dem Maßband, der von dieser Nachricht abgedeckt wird, wird als Grundlage für eine Auswahl eines Seeds verwendet. Dabei wird zufällig gleichverteilt ein Wert aus diesem Bereich ausgewählt.
 
-Auf die Verteilungsfunktion bezogen ist ein Seed, der aus der Nachricht $M_i$ generiert wird, eine reelle Zahl im Intervall $[F_m(M_{i-1}), F_m(M_i))$. Die Auswahl aus diesem Intervall lässt sich mithilfe eines Computers recht einfach bewerkstelligen, da dieser im Normalfall reelle Zufallszahlen im Intervall $[0,1)$ generieren kann --- Sicherheitsaspekte und -bedenken bezüglich vom Computer generierter Zufallszahlen betrachten wir in dieser Ausarbeitung nicht.
+Auf die Verteilungsfunktion bezogen ist ein Seed, der aus der Nachricht $M_i$ generiert wird, eine reelle Zahl im Intervall $[F_m(M_{i-1}), F_m(M_i))$. Die Auswahl aus diesem Intervall lässt sich mithilfe eines Computers recht einfach bewerkstelligen, da dieser im Normalfall reelle Zufallszahlen im Intervall $[0,1)$ generieren kann --- Sicherheitsaspekte und -bedenken bezüglich vom Computer generierter Zufallszahlen seien in dieser Ausarbeitung vernachlässigt.
 
 Auch hier ist klar, dass es mehr mögliche Seeds für eine Nachricht geben kann, je wahrscheinlicher diese Nachricht ist. In diese Richtung ist die Eigenschaft einer guten DTE ebenfalls gegeben.
 
