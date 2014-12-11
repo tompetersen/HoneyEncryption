@@ -107,7 +107,7 @@ Um die Grenzen festzulegen, sei $F_m(M_0) = 0$ und logischerweise $F_m(M_{|\math
 	\draw [thick, |-] (2,1) -- (3,1);
 	\draw [thick, |-] (3,2) -- (5,2);
 \end{tikzpicture}
-\caption{Eine Visualisierung einer Verteilungsfunktion $F_m$}
+\caption{Die Verteilungsfunktion $F_m$ mit $M_1 = r$, $M_2 = g$ und $M_3 = b$}
 \label{fig:Verteilungsfunktion}
 \end{figure}
 
@@ -115,11 +115,25 @@ Sei nun der Wertebereich aller Seeds $S \in \mathcal{S}$ das Intervall $[0,1)$. 
 
 $$min_i\{F_m(M_i) > S\}$$
 
-Anschaulich sei ein Maßband der Länge 1 betrachtet, auf der die Nachrichten entsprechend ihrer Wahrscheinlichkeiten aufeinanderfolgend und disjunkt aufgetragen (Abbildung \ref{fig:decode}) wurden. Ein Seed liegt nun irgendwo auf der Länge des Maßbandes. An dieser Stelle liegt auch eine Nachricht $M_i$, die dann als ursprüngliche Nachricht ausgegeben wird. Liegt der Seed dabei auf der Grenze zweier Nachrichten, wird die weiter rechts liegende zurückgeliefert.
+Anschaulich sei ein Maßband der Länge 1 betrachtet, auf der die Nachrichten entsprechend ihrer Wahrscheinlichkeiten aufeinanderfolgend und disjunkt aufgetragen (in Abbildung \ref{fig:decode} wieder am Beispiel aus Abschnitt \ref{sec:funktionsweise-beispiel} zu sehen) wurden. Ein Seed liegt nun irgendwo auf der Länge des Maßbandes. An dieser Stelle liegt auch eine Nachricht $M_i$, die dann als ursprüngliche Nachricht ausgegeben wird. Liegt der Seed dabei auf der Grenze zweier Nachrichten, wird die weiter rechts liegende zurückgeliefert.
+
+Beispielsweise wird $decode$ mit dem Parameter $0.4$ aufgerufen. Auf dem Maßband liegt an dieser Stelle $M_2$, weshalb diese als ursprüngliche Nachricht zurück gegeben wird.
 
 \begin{figure}[!h]
-Maßband mit Nachrichten und 0 links und 1 rechts
-\caption{Eine anschauliche Darstellung des \emph{decode}-Algorithmus}
+\center
+\begin{tikzpicture}
+	% Kaesten
+	\draw (0,0) rectangle (2.5,2) node [midway] {$M_1$};
+	\draw (2.5,0) rectangle (5,2) node [midway] {$M_2$};
+	\draw (5,0) rectangle (10,2) node [midway] {$M_3$};
+	% Skala
+	\foreach \x [evaluate=\x as \result using \x*0.1] in {0, 1, ..., 10} {
+		\draw (\x, -0.1) -- (\x, 0.1) node [below=0.2cm] {\pgfmathprintnumber{\result}};
+	}
+	% Pfeil
+	\draw [->] (4, -1.2) -- (4, -0.7);
+\end{tikzpicture}
+\caption{Ein Maßband als Analogie zum \emph{decode}-Algorithmus}
 \label{fig:decode}
 \end{figure}
 
