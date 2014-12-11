@@ -79,10 +79,34 @@ Eine DTE wird mit diesem Vorwissen nun wie folgt erstellt: Es wird die Verteilun
 
 $$F_m(M_i) = \sum_{k = 1}^{i} P(M_k)$$
 
-Um die Grenzen festzulegen, sei $F_m(M_0) = 0$ und logischerweise $F_m(M_{|\mathcal{M}|}) = 1$. Eine Visualisierung für eine Verteilungsfunktion solcher Art ist in Abbildung \ref{fig:Verteilungsfunktion} zu sehen.
+Um die Grenzen festzulegen, sei $F_m(M_0) = 0$ und logischerweise $F_m(M_{|\mathcal{M}|}) = 1$. Die Visualisierung für eine Verteilungsfunktion solcher Art --- hier des Beispiels aus Abschnitt \ref{sec:funktionsweise-beispiel} --- ist in Abbildung \ref{fig:Verteilungsfunktion} zu sehen.
 
 \begin{figure}[!h]
-Visualisierung
+\center
+\begin{tikzpicture}
+% Achsen:
+	% x-Achse
+	\draw [->] (-1,0) -- (5,0) node [right] {$i$};
+	\draw (1,-0.1) -- (1,0.1);
+	\draw (2,-0.1) -- (2,0.1);
+	\draw (3,-0.1) -- (3,0.1);
+	\draw (4,-0.1) -- (4,0.1);
+	\node at (0.5, -0.5) {$0$};
+	\node at (1.5, -0.5) {$1$};
+	\node at (2.5, -0.5) {$2$};
+	\node at (3.5, -0.5) {$3$};
+	% y-Achse
+	\draw [->] (0,-0.5) -- (0,2.5) node [above] {$F_m(M_i)$};
+	\draw (-0.1,0.5) --++ (0.2,0);
+	\draw (-0.1,1) --++ (0.2,0) node [left] {$0.5\ \ $};
+	\draw (-0.1,1.5) --++ (0.2,0);
+	\draw (-0.1,2) --++ (0.2,0) node [left] {$1\ \ $};
+	% Linien
+	\draw [thick] (-1,0) -- (1,0);
+	\draw [thick, |-] (1,0.5) -- (2,0.5);
+	\draw [thick, |-] (2,1) -- (3,1);
+	\draw [thick, |-] (3,2) -- (5,2);
+\end{tikzpicture}
 \caption{Eine Visualisierung einer Verteilungsfunktion $F_m$}
 \label{fig:Verteilungsfunktion}
 \end{figure}
