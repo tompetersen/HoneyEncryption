@@ -15,7 +15,42 @@ Bei der Verschlüsselung einer Nachricht $M \in \mathcal{M}$ weist der Algorithm
 Jede Nachricht kann also durch mehr als einen Seed dargestellt werden, aber jeder Seed verweist auf genau eine Nachricht (zu sehen in Abbildung \ref{fig:dte}).
 
 \begin{figure}[!h]
-Seed Space und Message Space anzeigen und Pfeile einmalen
+\center
+\begin{tikzpicture}
+	% Linke Seite
+	\draw (1,2) rectangle (4, 12);
+	\draw (1,4) -- (4, 4);
+	\draw (1,6) -- (4, 6);
+	\draw (1,8) -- (4, 8);
+	\draw (1,10) -- (4, 10);
+	% Rechte Seite
+	\draw (7,4) rectangle (10, 12);
+	\draw (7,6) -- (10, 6);
+	\draw (7,8) -- (10, 8);
+	\draw (7,10) -- (10, 10);
+	% Verbindungen
+	\draw (4,11) -- (7, 11);
+	\draw (4,9) -- (7, 11);
+	\draw (4,7) -- (7, 9);
+	\draw (4,3) -- (7, 5);
+	% Labels links
+	\node at (2.5, 11) {$S_{1}$};
+	\node at (2.5, 9) {$S_{2}$};
+	\node at (2.5, 7) {$S_{3}$};
+	\node at (2.5, 5) {$\dots$};
+	\node at (2.5, 3) {$S_{|\mathcal{S}|}$};
+	% Labels rechts
+	\node at (8.5, 11) {$M_{1}$};
+	\node at (8.5, 9) {$M_{2}$};
+	\node at (8.5, 7) {$\dots$};
+	\node at (8.5, 5) {$M_{|\mathcal{M}|}$};
+	% Labels unten
+	\node at (8.5, 1) {$\mathcal{M}$};
+	\node at (2.5, 1) {$\mathcal{S}$};
+	% Pfeile
+	\draw [<-] (4,1.2) -- node [above] {$encode(M)$} ++ (3,0) ;
+	\draw [->] (4,0.8) -- node [below] {$decode(S)$} ++ (3,0);
+\end{tikzpicture}
 \caption{Relationen zwischen $\mathcal{M}$ und $\mathcal{S}$}
 \label{fig:dte}
 \end{figure}
