@@ -49,7 +49,32 @@ Durch diese Eigenschaft kann ein Angreifer, der per Brute-Force-Angriff vorgeht,
 Ein kleines Beispiel soll nun die grundsätzliche Funktionsweise darstellen (Abbildung \ref{fig:Beispiel}). Angenommen, wir möchten unseren liebsten RGB-Farbanteil verschlüsseln und wissen, dass jeder zweite Mensch blau am liebsten mag und jeder vierte jeweils rot oder grün. Damit kennen wir die Verteilung der Nachrichten \(p_m\). Der erste Schritt besteht nun darin, unseren liebsten Farbanteil grün durch eine DTE (Distribution Transforming Encoder, näheres in Kapitel \ref{sec:dte}) auf den sogenannten Seed Space \(\mathcal{S}\) abbilden\footnote{Abbildung ist hier nicht rein mathematisch zu verstehen, denn es handelt sich nicht zwingend um eine deterministische Relation.} zu lassen. Für grün erhalten wir so den Seed \(S=01\). Im zweiten Schritt wird S nun mit unserem Schlüssel \(K=10\) XOR-verknüpft und wir erhalten \(C=01 \oplus 10 = 11\) (auf konkrete Verfahren zur Verschlüsselung wird in Kapitel \ref{sec:schema} eingegangen).
 
 \begin{figure}[!h]
-Visualisierung wie in dem Kurzvortrag. Exakt gleiches Beispiel.
+\center
+\begin{tikzpicture}
+	% Linker Kasten
+	\draw (1, 8) rectangle ++ (3, 2) node [midway] {$00$};
+	\draw (1, 6) rectangle ++ (3, 2) node [midway] {$01$};
+	\draw [fill=lightgray!40!white] (1, 4) rectangle ++ (3, 2) node [midway] {$10$};
+	\draw (1, 2) rectangle ++ (3, 2) node [midway] {$11$};
+	% Mittlerer Kasten
+	\draw (7, 8) rectangle ++ (3, 2) node [midway] {$00$};
+	\draw [fill=lightgray!40!white] (7, 6) rectangle ++ (3, 2) node [midway] {$01$};
+	\draw (7, 4) rectangle ++ (3, 2) node [midway] {$10$};
+	\draw (7, 2) rectangle ++ (3, 2) node [midway] {$11$};
+	% Rechter Kasten
+	\draw (13, 8) rectangle ++ (3, 2) node [midway] {r};
+	\draw [fill=lightgray!40!white] (13, 6) rectangle ++ (3, 2) node [midway] {g};
+	\draw (13, 2) rectangle ++ (3, 4) node [midway] {b};
+	% Labels unten
+	\node at (2.5, 1) {$\mathcal{K}$};
+	\node at (8.5, 1) {$\mathcal{S}$};
+	\node at (14.5, 1) {$\mathcal{M}$};
+	% Linien
+	\draw (10, 9) --++ (3, 0);
+	\draw (10, 7) --++ (3, 0);
+	\draw (10, 5) --++ (3, -1);
+	\draw (10, 3) --++ (3, 1);
+\end{tikzpicture}
 \caption{Visualisierung unseres Beispiels}
 \label{fig:Beispiel}
 \end{figure}
