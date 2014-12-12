@@ -91,5 +91,3 @@ Das erste Verfahren, das betrachtet werden soll, ist das sogenannte One Time Pad
 Auch existierende AE- oder PBE-Schemata eignen sich, wie oben erklärt, nicht für die Honey Encryption, da die meisten entschlüsselten Nachrichten leicht als nicht plausibel verworfen werden können.
 
 Als Letztes sei noch der Unterschied zu explizit gespeicherten Täuschobjekten erwähnt, wie sie beispielsweise in \cite{ACM13} verwendet werden. Bei diesen Verfahren werden neben der echten Nachricht \(n\) andere Honey Messages explizit gespeichert und (übertragen auf das hier betrachtete Gebiet) im Falle eines falschen Schlüssels bei der Entschlüsselung zurückgegeben. Im Gegensatz zur optimalen Honey Encryption ist die Erfolgswahrscheinlichkeit bei diesen Verfahren immer durch \(\frac{1}{n}\) beschränkt und unabhängig von der Entropie der Schlüsselverteilung. Außerdem haben diese Systeme einen Speicherbedarf von \(\mathcal{O}(n)\), Honey Encryption gelingt dies im Optimalfall mit einem Bedarf von \(\mathcal{O}(1)\).
-
-\newpage

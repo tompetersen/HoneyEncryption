@@ -1,4 +1,5 @@
 \subsection{Eine DTE für private RSA-Schlüssel}
+\label{sec:dte-rsa}
 
 Das folgende Beispiel ist entnommen aus \cite{EURO2014}.
 
@@ -122,5 +123,3 @@ Sowohl bei der Ver- als auch bei der Entschlüsselung wird zum Erzeugen eines Sc
 Bei der Verschlüsselung (Abbildung \ref{fig:BlockEnc}) wird der aus der Kodierung entstandene Seed \(S\) mit den \(|S|\) ersten Bits des wie bereits beschrieben berechneten Schlüsselstrom \(P\) XOR-verknüpft und bildet so den Chiffretext \(C\), der zusammen mit \(R\) nun gespeichert oder übertragen werden kann.
 
 Bei der Entschlüsselung (Abbildung \ref{fig:BlockDec}) müssen nach Berechnung des Schlüsselstroms \(P\) nur noch die \(|S|\) ersten Bits von \(P\) mit \(C\) XOR-verknüpft werden und man erhält den ursprünglichen Seed \(S\). Dieser kann dann durch die DTE  dekodiert werden und es ergibt sich wieder die Nachricht \(M\).
-
-\newpage
