@@ -1,6 +1,6 @@
 \section{DTE}
 \label{sec:dte}
-Die DTE\footnote{\emph{DTE} lässt sich mit \emph{Verteilungsumwandelnde Codiermaschine} übersetzen, weshalb wir in dieser Ausarbeitung den femininen Genus für den Fachbegriff verwenden.}, Abkürzung für \emph{distribution-transforming encoder}, dient zum Abbilden einer Nachricht $M$ aus dem Message Space $\mathcal{M}$ auf einen Seed $S$ aus dem Seed Space $\mathcal{S}$. Gleichermaßen soll sie die Möglichkeit bieten, von einem Seed auf die ursprüngliche Nachricht abzubilden. Eine DTE ist also ein Tupel von Algorithmen
+Die DTE\footnote{\emph{DTE} lässt sich mit \emph{Verteilungsumwandelnde Codiermaschine} übersetzen, weshalb in dieser Ausarbeitung der feminine Genus für den Fachbegriff verwendet wird.}, Abkürzung für \emph{distribution-transforming encoder}, dient zum Abbilden einer Nachricht $M$ aus dem Message Space $\mathcal{M}$ auf einen Seed $S$ aus dem Seed Space $\mathcal{S}$. Gleichermaßen soll sie die Möglichkeit bieten, von einem Seed auf die ursprüngliche Nachricht abzubilden. Eine DTE ist also ein Tupel von Algorithmen
 $$DTE = (encode, decode)$$
 wobei $encode$ einen meist randomisierten Algorithmus der Form $\mathcal{M} \rightarrow \mathcal{S}$ und $decode$ einen deterministischen Algorithmus der Form $\mathcal{S} \rightarrow \mathcal{M}$ beschreibt.
 
@@ -143,6 +143,6 @@ Bisher wurde der \emph{decode}-Algorithmus betrachtet. Der \emph{encode}-Algorit
 
 Auf die Verteilungsfunktion bezogen ist ein Seed, der aus der Nachricht $M_i$ generiert wird, eine reelle Zahl im Intervall $[F_m(M_{i-1}), F_m(M_i))$. Die Auswahl aus diesem Intervall lässt sich mithilfe eines Computers recht einfach bewerkstelligen, da dieser im Normalfall reelle Zufallszahlen im Intervall $[0,1)$ generieren kann --- Sicherheitsaspekte und -bedenken bezüglich vom Computer generierter Zufallszahlen seien in dieser Ausarbeitung vernachlässigt.
 
-Auch hier ist klar, dass es mehr mögliche Seeds für eine Nachricht geben kann, je wahrscheinlicher diese Nachricht ist. In diese Richtung ist die Eigenschaft einer guten DTE ebenfalls gegeben.
+Auch hier ist klar, dass es ein größeres Seedintervall für eine Nachricht gibt, je wahrscheinlicher diese Nachricht ist. Daher ist diese Eigenschaft einer guten DTE ebenfalls gegeben.
 
 Um die erzeugte DTE praktisch anwenden zu können, muss noch das Problem der Übersetzung der stetigen Werte zwischen $[0,1)$ in die diskreten Werte von in Binärzahlen angegebenen Seeds des Seed Spaces, welcher tatsächlich verwendet wird. Die Anzahl der Seeds sollte so gewählt werden, dass die Abweichungen der relativen Seed-Bereiche einer Nachricht in beiden Repräsentationen möglichst klein sind. Je größer die Abweichungen nämlich sind, desto mehr verzerrt sich die Verteilung der DTE. Die erstrebenswerten Eigenschaften einer guten DTE wären damit nicht mehr gegeben und es könnte zu einem Sicherheitseinbruch der Honey Encryption mit dieser DTE kommen.
