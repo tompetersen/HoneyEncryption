@@ -1,15 +1,48 @@
-This is BibTeX, Version 0.99dThe top-level auxiliary file: Honey Encryption.aux
+This is BibTeX, Version 0.99d (TeX Live 2013)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: Honey Encryption.aux
 The style file: myalpha.bst
 Database file #1: quellen.bib
-You're missing a field name---line 26 of file quellen.bib
- :     
- :     %pages =     { 145--159 }
-(Error may have been on previous line)
-I'm skipping whatever remains of this entry
-I was expecting a `,' or a `}'---line 46 of file quellen.bib
- :  
- :  %,pages={531-545}
-(Error may have been on previous line)
-I'm skipping whatever remains of this entry
 Warning--empty institution in pbkdf2000
-(There were 2 error messages)
+You've used 11 entries,
+            2543 wiz_defined-function locations,
+            633 strings with 6165 characters,
+and the built_in function-call counts, 3485 in all, are:
+= -- 338
+> -- 143
+< -- 7
++ -- 43
+- -- 42
+* -- 201
+:= -- 591
+add.period$ -- 37
+call.type$ -- 11
+change.case$ -- 58
+chr.to.int$ -- 10
+cite$ -- 12
+duplicate$ -- 161
+empty$ -- 290
+format.name$ -- 58
+if$ -- 723
+int.to.chr$ -- 2
+int.to.str$ -- 0
+missing$ -- 9
+newline$ -- 60
+num.names$ -- 33
+pop$ -- 93
+preamble$ -- 1
+purify$ -- 71
+quote$ -- 0
+skip$ -- 110
+stack$ -- 0
+substring$ -- 92
+swap$ -- 11
+text.length$ -- 7
+text.prefix$ -- 5
+top$ -- 0
+type$ -- 80
+warning$ -- 1
+while$ -- 28
+width$ -- 14
+write$ -- 143
+(There was 1 warning)
