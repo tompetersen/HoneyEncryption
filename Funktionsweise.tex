@@ -1,12 +1,13 @@
 \section{Notationen}
 
-In den folgenden Kapiteln, in denen auf die Funktionsweise der Honey Encryption eingegegangen wird, werden folgende Notationen verwendet:
+In den folgenden Abschnitten, in denen auf die Funktionsweise der Honey Encryption eingegegangen wird, werden folgende Notationen verwendet. Diese stimmen nicht vollständig mit der verwendeten Literatur überein.
 
 \begin{tabular}{lp{14cm}}
 \(\mathcal{M}\) & der Message Space, die Menge aller möglichen Nachrichten. \\ 
 \(\mathcal{K}\) & der Key Space, die Menge aller möglichen Schlüssel. \\ 
 \(\mathcal{C}\) & die Menge aller möglichen Ciphertexte. \\ 
-\(\mathcal{S}\) & der Seed Space. Näheres dazu insbesondere in Kapitel \ref{sec:dte}. \\ 
+\(\mathcal{S}\) & der Seed Space. Näheres dazu insbesondere in Abschnitt \ref{sec:dte}. \\ 
+\(P(X)\) & die Wahrscheinlichkeit für das Eintreten des Ereignisses X.\\ 
 \(\overset{<r>}{=}\) & eine nicht-deterministische Zuweisung. Dies kann entweder komplett zufällig geschehen (wie bei der Generierung von zufälligen Bitstrings) oder zumindestens vom Zufall mitbestimmt werden (wie bei der Kodierung einer Nachricht durch die DTE). \\ 
 \(a \oplus b\) & die XOR-Verknüpfung von a und b. \\ 
 \(S || T\) & die Konkatenierung der Zeichenketten S und T. \\ 
@@ -45,7 +46,7 @@ incorrect keys, yields plausible-looking but bogus plaintexts called honey messa
 
 Durch diese Eigenschaft kann ein Angreifer, der per Brute-Force-Angriff vorgeht, nie sicher sein, ob die in jedem Fall erhaltene, korrekt aussehende Nachricht wirklich die vorher verschlüsselte Nachricht \(M\) ist. Dies gilt selbst für unbeschränkte Angreifer und insbesondere auch für Schlüssel geringer Entropie. Es lässt sich zeigen (und die Autoren tun dies in\cite{EURO2014} für einige konkrete Anwendungsfälle), dass die Wahrscheinlichkeit, die Nachricht per Brute-Force-Angriff auf den Ciphertext \(C\) zu knacken, bei korrekter Implementation des Verfahrens (bis auf einen vernachlässigbaren Summanden) nicht größer ist als die Wahrscheinlichkeit, \(M\) durch Entschlüsselung von \(C\) mit dem Schlüssel \(K\text{*}\), der am wahrscheinlichsten in \(\mathcal{K}\) ist, zu erhalten. Dies entspricht auch in etwa der Wahrscheinlichkeit, mit Auswahl von \(M\text{*}\), der Nachricht mit der größten Wahrscheinlichkeit in \(\mathcal{M}\), die richtige Nachricht \(M\) erhalten zu haben. Diese Aussage lässt sich jedoch auch ohne Kenntnis von \(C\) treffen, also hat der Angreifer durch Kenntnis von \(C\) keinen Vorteil erlangt.
 
-Ein kleines Beispiel soll nun die grundsätzliche Funktionsweise darstellen (Abbildung \ref{fig:Beispiel}). Angenommen, es soll der liebste RGB-Farbanteil verschlüsselt werden. Es sei bekannt, dass jeder zweite Mensch blau und jeder vierte jeweils rot oder grün am liebsten mag. Damit ist die Verteilung der Nachrichten \(p_m\) bekannt. Der erste Schritt besteht nun darin, den liebsten Farbanteil grün durch eine DTE (Distribution Transforming Encoder, näheres in Kapitel \ref{sec:dte}) auf den sogenannten Seed Space \(\mathcal{S}\) abbilden\footnote{Abbildung ist hier nicht rein mathematisch zu verstehen, denn es handelt sich nicht zwingend um eine deterministische Relation.} zu lassen. Für grün erhält man so den Seed \(S=01\). Im zweiten Schritt wird S nun mit dem gewählten Schlüssel \(K=10\) XOR-verknüpft und es entsteht der Ciphertext \(C=01 \oplus 10 = 11\) (auf konkrete Verfahren zur Verschlüsselung wird in Kapitel \ref{sec:schema} eingegangen).
+Ein kleines Beispiel soll nun die grundsätzliche Funktionsweise darstellen (Abbildung \ref{fig:Beispiel}). Angenommen, es soll der liebste RGB-Farbanteil verschlüsselt werden. Es sei bekannt, dass jeder zweite Mensch blau und jeder vierte jeweils rot oder grün am liebsten mag. Damit ist die Verteilung der Nachrichten \(p_m\) bekannt. Der erste Schritt besteht nun darin, den liebsten Farbanteil grün durch eine DTE (Distribution Transforming Encoder, näheres in Abschnitt \ref{sec:dte}) auf den sogenannten Seed Space \(\mathcal{S}\) abbilden\footnote{Abbildung ist hier nicht rein mathematisch zu verstehen, denn es handelt sich nicht zwingend um eine deterministische Relation.} zu lassen. Für grün erhält man so den Seed \(S=01\). Im zweiten Schritt wird S nun mit dem gewählten Schlüssel \(K=10\) XOR-verknüpft und es entsteht der Ciphertext \(C=01 \oplus 10 = 11\) (auf konkrete Verfahren zur Verschlüsselung wird in Abschnitt \ref{sec:schema} eingegangen).
 
 \begin{figure}[!h]
 \center
