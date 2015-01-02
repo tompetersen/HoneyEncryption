@@ -64,7 +64,7 @@ Zur Entschlüsselung wird das Verfahren in ähnlicher Weise durchlaufen (Abbildu
 
 Für die Verschlüsselung können jedoch auch Blockchiffren genutzt werden. Hierbei muss aber beachtet werden, dass der Eingangsraum der Blockchiffre gleich dem Seed Space sein muss und alle Ciphertexte unter allen möglichen Schlüsseln zu Werten aus dem Seed Space entschlüsselt werden müssen.
 
-Im Folgenden wird das Schema unter Nutzung einer Blockchiffre mit dem CTR-Modus skizziert. Andere Betriebsmodi sollten ebenfalls nutzbar sein. So erwähnen die Autoren in \cite{EURO2014} explizit den CBC-Modus, weisen jedoch auch darauf hin, dass die Länge eines Seeds in diesem Fall ein Vielfaches der Blocklänge der Blockchiffre sein muss, so dass kein Padding benötigt wird.
+Im Folgenden wird das Schema unter Nutzung einer Blockchiffre mit dem CTR-Modus skizziert. Andere Betriebsmodi sollten ebenfalls nutzbar sein. So erwähnen die Autoren in \cite{EURO2014} explizit den CBC-Modus, weisen jedoch auch darauf hin, dass die Länge eines Seeds in diesem Fall ein Vielfaches der Blocklänge der Blockchiffre sein muss, so dass kein Padding \footnote{Als Padding werden die zum Auffüllen des letzten, nicht vollständig belegten Blocks verwendeten Bits bezeichnet, die benötigt werden, wenn die Länge der Nachricht kein Vielfaches der Blocklänge ist.} benötigt wird.
 
 \begin{figure}[h]
 	\begin{minipage}[b]{0.5\textwidth}

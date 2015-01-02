@@ -1,6 +1,6 @@
 \section{Notationen}
 
-In den folgenden Abschnitten, in denen auf die Funktionsweise der Honey Encryption eingegegangen wird, werden die unten stehenden Notationen verwendet. Diese stimmen nicht vollständig mit der verwendeten Literatur überein.
+In den folgenden Abschnitten, in denen auf die Funktionsweise der Honey Encryption eingegegangen wird, werden die unten stehenden Notationen verwendet. Diese stimmen nicht vollständig mit denen in der verwendeten Literatur überein.
 
 \begin{tabular}{lp{14cm}}
 \(\mathcal{M}\) & der Message Space, die Menge aller möglichen Nachrichten. \\ 
@@ -20,7 +20,7 @@ In den folgenden Abschnitten, in denen auf die Funktionsweise der Honey Encrypti
 \section{Funktionsweise}
 \label{sec:funktionsweise}
 
-Honey-Objekte werden in der IT-Sicherheit in vielfacher Weise zum Aufdecken, Abwehren oder Untersuchen von Angriffen auf Systeme genutzt. Am bekanntesten dürften die Honeypots sein --- Server oder Programme, die Systeme simulieren, um Informationen über das Verhalten von Angreifern zu erlangen oder Einbrüche aufzudecken. Aber auch weniger bekannte Verfahren wie Honeydocuments, Honeyfiles oder Honeywords sind in diesem Bereich anzusiedeln. Grundsätzlich geht es hier darum, ein echtes Objekt zwischen Täuschungen (den Honey-Objekten) zu verstecken. 
+Honey-Objekte werden in der IT-Sicherheit in vielfacher Weise zum Aufdecken, Abwehren oder Untersuchen von Angriffen auf Systeme genutzt. Am bekanntesten dürften die Honeypots sein: Server oder Programme, die Systeme simulieren, um Informationen über das Verhalten von Angreifern zu erlangen oder Einbrüche aufzudecken. Aber auch weniger bekannte Verfahren wie Honeydocuments, Honeyfiles oder Honeywords sind in diesem Bereich anzusiedeln. Grundsätzlich geht es hier darum, ein echtes Objekt zwischen Täuschungen (den Honey-Objekten) zu verstecken. 
 
 All diese Verfahren verbinden zwei Eigenschaften: Ununterscheidbarkeit, d.h. Honey-Objekte sollten nur schwer vom echten Objekt differenzierbar sein, und Geheimhaltung, d.h. die bloße Kenntnis der Existenz von Honey-Objekten darf einem Angreifer auf das System keinen Vorteil bringen (frei nach dem Kerkhoffs'schen Prinzip: Nicht das Verfahren, sondern lediglich der Index des echten Objekts in der Liste aller Objekte ist geheim zu halten) \cite{SACMAT2014}.
 
