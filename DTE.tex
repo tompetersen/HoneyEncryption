@@ -57,9 +57,9 @@ Jede Nachricht kann also durch mehr als einen Seed dargestellt werden, aber jede
 
 Somit ist leicht zu erkennen, dass es sich bei $decode$ um einen deterministischen Algorithmus handelt. Der Begriff \emph{Abbildung} wäre in diesem Fall auch mathematisch korrekt.
 
-Wie schon beschrieben, sollte die Wahrscheinlichkeitsverteilung der Nachrichten so gut wie möglich durch die DTE nachgeahmt werden. Juels und Ristenpart \cite{EURO2014} führen hierfür eine neue Verteilung $p_d$ ein --- die Verteilung, die die DTE über den Message Space $\mathcal{M}$ erzeugt. Diese wird definiert als die Wahrscheinlichkeit, dass zufällig und gleichverteilt gewählte Seeds durch die $decode$-Funktion auf eine bestimmte Nachricht $M$ abgebildet wird.
+Wie schon beschrieben, sollte die Wahrscheinlichkeitsverteilung der Nachrichten so gut wie möglich durch die DTE nachgeahmt werden. Juels und Ristenpart \cite{EURO2014} führen hierfür eine neue Verteilung $p_d$ ein --- die Verteilung, die die DTE über dem Message Space $\mathcal{M}$ erzeugt. Diese wird definiert als die Wahrscheinlichkeit, dass zufällig und gleichverteilt gewählte Seeds durch die $decode$-Funktion auf eine bestimmte Nachricht $M$ abgebildet werden.
 
-$$p_d(M) = P(M' = M : S \overset{<r>}{=} \mathcal{S} ; M' = decode(S))$$
+$$p_d(M) = P(M' = M : S \overset{<r>}{=} \mathcal{S} \land M' = decode(S))$$
 
 Eine intuitivere Definition von $p_d$ wäre
 
@@ -71,13 +71,13 @@ Bei der Erstellung einer DTE sollte darauf geachtet werden, dass $p_d \approx p_
 
 \subsection{Generierung einer DTE mithilfe der Inversionsmethode}
 
-Ein mögliches Vorgehen zur Erstellung einer DTE, die von Juels und Ristenpart in \cite{EURO2014} vorgeschlagen wird, ist die Nutzung der sogenannten Inverse Sampling Methode, zu Deutsch Inversionsmethode. Sie wird in der Informatik und Stochastik angewendet, um mithilfe von gleichverteilten Zufallszahlen, Zahlen anderer gewünschter Wahrscheinlichkeitsverteilungen zu erhalten (siehe \cite{Inversionsmethode}). Meist wird dieses Verfahren in der Informatik für die Simulation von Zufallsvariablen, wie beispielsweise dem Monte-Carlo-Verfahren, verwendet. Dabei wird einer Rechteckverteilung $R(0,1)$ eine neue Wahrscheinlichkeitsverteilung zugewiesen. So kann ein Computer Zufallszahlen erzeugen, die in einer beliebigen, neuen Verteilung liegen, im Gegensatz zu den normalerweise von ihm generierbaren Zahlen im Intervall $[0,1)$.
+Ein mögliches Vorgehen zur Erstellung einer DTE, die von Juels und Ristenpart in \cite{EURO2014} vorgeschlagen wird, ist die Nutzung der sogenannten Inverse Sampling Methode, zu Deutsch Inversionsmethode. Sie wird in der Informatik und Stochastik angewendet, um mithilfe von gleichverteilten Zufallszahlen Zahlen anderer gewünschter Wahrscheinlichkeitsverteilungen zu erhalten (siehe \cite{Inversionsmethode}). Meist wird dieses Verfahren in der Informatik für die Simulation von Zufallsvariablen, wie beispielsweise dem Monte-Carlo-Verfahren, verwendet. Dabei wird einer Rechteckverteilung $R(0,1)$ eine neue Wahrscheinlichkeitsverteilung zugewiesen. So kann ein Computer Zufallszahlen erzeugen, die in einer beliebigen, neuen Verteilung liegen, im Gegensatz zu den normalerweise von ihm generierbaren Zahlen im Intervall $[0,1)$.
 
-Wie schon beschrieben wurde, muss für die Generierung einer DTE $p_m$, also die Wahrscheinlichkeitsverteilung für die Nachrichten des Message Spaces, bekannt sein. Nach den Regeln der Stochastik hat jede Nachricht eine Wahrscheinlichkeit im Intervall $(0,1)$, wobei die Summe aller Wahrscheinlichkeiten gleich $1$ sein muss. Es sei hier explizit darauf hingewiesen, dass die Intervallränder $0$ und $1$ als Wahrscheinlichkeiten für Nachrichten ungeeignet sind. Gilt nämlich für eine Nachricht $M \in \mathcal{M}$ $P(M) = 0$, dann ist das Vorkommen dieser Nachricht nicht möglich und sollte somit gar nicht beachtet werden. Ein Vorkommen im Message Space ist damit überflüssig. Gilt andererseits für $M$ $P(M) = 1$, so ist dies die einzig mögliche Nachricht. Dann ist es nicht sinnvoll, Honey Encryption zu verwenden, da ein potentieller Angreifer zum eindeutigen Entschlüsseln nicht einmal den Ciphertext kennen müsste. Der Angriff wäre trivial.
+Wie schon beschrieben wurde, muss für die Generierung einer DTE die Wahrscheinlichkeitsverteilung für die Nachrichten des Message Spaces $p_m$ bekannt sein. Nach den Regeln der Stochastik hat jede Nachricht eine Wahrscheinlichkeit im Intervall $(0,1)$, wobei die Summe aller Wahrscheinlichkeiten gleich $1$ sein muss. Es sei hier explizit darauf hingewiesen, dass die Intervallränder $0$ und $1$ als Wahrscheinlichkeiten für Nachrichten ungeeignet sind. Gilt nämlich für eine Nachricht $M \in \mathcal{M}$ $P(M) = 0$, dann ist das Vorkommen dieser Nachricht nicht möglich und sollte somit gar nicht beachtet werden. Ein Vorkommen im Message Space ist damit überflüssig. Gilt andererseits für $M$ $P(M) = 1$, so ist dies die einzig mögliche Nachricht. Dann ist es nicht sinnvoll, Honey Encryption zu verwenden, da ein potentieller Angreifer zum eindeutigen Entschlüsseln nicht einmal den Ciphertext kennen müsste. Der Angriff wäre trivial.
 
 Eine DTE wird mit diesem Vorwissen nun wie folgt erstellt: Es wird die Verteilungsfunktion $F_m$ der Verteilung $p_m$ genutzt. Gegeben sei dafür eine Ordnung der Nachrichten im Message Space $\mathcal{M} = \{M_1, \dots, M_{|\mathcal{M}|}\}$. Die Verteilungsfunktion einer Nachricht $F_m(M_i)$ ist nun die Summe der Wahrscheinlichkeiten der ersten $i$ Nachrichten.
 
-$$F_m(M_i) = \sum_{k = 1}^{i} P(M_k)$$
+$$F_m(M_i) = \sum_{k = 1}^{i} p_m(M_k)$$
 
 Um die Grenzen festzulegen, sei $F_m(M_0) = 0$ und logischerweise $F_m(M_{|\mathcal{M}|}) = 1$. Die Visualisierung für eine Verteilungsfunktion solcher Art --- hier des Beispiels aus Abschnitt \ref{sec:funktionsweise-beispiel} --- ist in Abbildung \ref{fig:Verteilungsfunktion} zu sehen.
 
@@ -107,7 +107,7 @@ Um die Grenzen festzulegen, sei $F_m(M_0) = 0$ und logischerweise $F_m(M_{|\math
 	\draw [thick, |-] (2,1) -- (3,1);
 	\draw [thick, |-] (3,2) -- (5,2);
 \end{tikzpicture}
-\caption{Die Verteilungsfunktion $F_m$ mit $M_1 = r$, $M_2 = g$ und $M_3 = b$}
+\caption{Veranschaulichung der Verteilungsfunktion $F_m$\\ mit $M_1 = r$, $M_2 = g$ und $M_3 = b$}
 \label{fig:Verteilungsfunktion}
 \end{figure}
 
@@ -145,7 +145,7 @@ Auf die Verteilungsfunktion bezogen ist ein Seed, der aus der Nachricht $M_i$ ge
 
 Auch hier ist klar, dass es ein größeres Seedintervall für eine Nachricht gibt, je wahrscheinlicher diese Nachricht ist. Daher ist diese Eigenschaft einer guten DTE ebenfalls gegeben.
 
-Um die erzeugte DTE praktisch anwenden zu können, muss noch das Problem der Übersetzung der stetigen Werte zwischen $[0,1)$ in die diskreten Werte von in Binärzahlen angegebenen Seeds des Seed Spaces, welcher tatsächlich verwendet wird. Die Anzahl der Seeds sollte so gewählt werden, dass die Abweichungen der relativen Seed-Bereiche einer Nachricht in beiden Repräsentationen möglichst klein sind. Je größer die Abweichungen nämlich sind, desto mehr verzerrt sich die Verteilung der DTE. Die erstrebenswerten Eigenschaften einer guten DTE wären damit nicht mehr gegeben und es könnte zu einem Sicherheitseinbruch der Honey Encryption mit dieser DTE kommen.
+Um die erzeugte DTE praktisch anwenden zu können, muss noch das Problem der Übersetzung der stetigen Werte zwischen $[0,1)$ in die diskreten Werte von in Binärzahlen angegebenen Seeds des Seed Spaces, welcher tatsächlich verwendet wird, gelöst werden. Die Anzahl der Seeds sollte so gewählt werden, dass die Abweichungen der relativen Seed-Bereiche einer Nachricht in beiden Repräsentationen möglichst klein sind. Je größer die Abweichungen nämlich sind, desto mehr verzerrt sich die Verteilung der DTE. Die erstrebenswerten Eigenschaften einer guten DTE wären damit nicht mehr gegeben und es könnte zu einem Sicherheitseinbruch der Honey Encryption mit dieser DTE kommen.
 
 \subsection{Eine DTE für private RSA-Schlüssel}
 \label{sec:dte-rsa}
@@ -156,13 +156,13 @@ Bei RSA handelt es sich um einen asymmetrischen Verschlüsselungsalgorithmus, d.
 
 Bei SSH lässt sich Honey Encryption jedoch anwenden. In diesem Fall wird der öffentliche Schlüssel zum Zweck der Authentifizierung auf dem Server gespeichert, den man erreichen möchte (und steht somit dem Angreifer nicht zur Verfügung). Der private Schlüssel (genauer \(p\) und \(q\) zusammen mit weiteren berechneten Werten, um die Ver- bzw. Entschlüsselung nach dem Chinesischen Restsatz zu erleichtern) wird verschlüsselt auf dem Clientsystem gespeichert.
 
-Zur Erstellung einer DTE für RSA-Schlüssel muss betrachtet werden, wie die Primzahlen \(p\) und \(q\) (im Folgenden werden Primzahlen aus dem Intervall \([2^{l-1},2^l)\) gefordert) erhalten werden. Normalerweise werden zufällige Zahlen aus dem Intervall gewählt und durch einen Primzahltest (z.B. Miller-Rabin-Test) auf Primzahleigenschaften hin überprüft. Dies wird solange wiederholt, bis man zwei Primzahlen gefunden hat. 
+Zur Erstellung einer DTE für RSA-Schlüssel muss betrachtet werden, wie die Primzahlen \(p\) und \(q\) bestimmt werden (im Folgenden werden Primzahlen aus dem Intervall \([2^{l-1},2^l)\) gefordert). Normalerweise werden zufällige Zahlen aus dem Intervall gewählt und durch einen Primzahltest (z.B. Miller-Rabin-Test) auf Primzahleigenschaften hin überprüft. Dies wird solange wiederholt, bis man zwei Primzahlen gefunden hat.
 
 % Guck nochmal nach, wieso l-2
 Ein naiver Ansatz für eine DTE wäre es, die beiden gefundenen Primzahlen als \((l-2)\)-Bitstrings zu dekodieren (die auf jeden Fall vorhandene führende 1 ist implizit und wird ausgelassen). Da jedoch bei der Entschlüsselung dann auch Nicht-Primzahlen entstehen würden (und zwar nach dem Primzahlsatz mit etwa Wahrscheinlichkeit \(1-\frac{1}{l}\)), würde ein Angreifer viele Ausgaben von vornherein als nicht plausibel erkennen können.
 
 Daher schlagen die Autoren in \cite{EURO2014} ein anderes Vorgehen vor. Zur Kodierung von \(p\) und \(q\) wird ein Vektor von \(t\) zufälligen \((l-2)\)-Bitstrings angelegt. Per Primzahltest werden die Zahlen überprüft. Die ersten beiden Primzahlen in dem Vektor werden durch \(p\) und \(q\) ersetzt. Enthält der Vektor nur eine Primzahl, so wird diese durch \(p\) und die letzte Zahl durch \(q\) ersetzt. Enthält der Vektor keine Primzahlen, so ersetzen \(p\) und \(q\) die letzten beiden Zahlen. Beim Dekodieren werden die ersten beiden Primzahlen im Vektor ausgegeben. Wenn der Vektor keine zwei Primzahlen enthält, so werden fest kodierte Primzahlen ausgegeben.
 
-Es lässt sich zeigen, dass ein Angreifer, der versucht \(p\) und \(q\) per Brute-Force-Angriff zu erhalten, eine Erfolgswahrscheinlichkeit von höchstens \((1-\frac{2}{3l})^{t-1}\) besitzt (ebenfalls \cite{EURO2014}). Damit lässt sich diese Wahrscheinlichkeit also durch Nutzung eines größeren Vektors verringern (allerdings auf Kosten größeres Speicherplatzbedarfs).
+Es lässt sich zeigen, dass ein Angreifer, der versucht \(p\) und \(q\) per Brute-Force-Angriff zu erhalten, eine Erfolgswahrscheinlichkeit von höchstens \((1-\frac{2}{3l})^{t-1}\) besitzt (ebenfalls \cite{EURO2014}). Damit lässt sich diese Wahrscheinlichkeit also durch Nutzung eines größeren Vektors verringern (allerdings auf Kosten größeren Speicherplatzbedarfs).
 
 Ein anderer Ansatz, der in \cite{EURO2014} erwähnt wird, ist die Kodierung des Seeds/Keys, der zur Initialisierung des Zufallszahlengenerators verwendet wurde, um \(p\) und \(q\) zu generieren. Eine DTE wäre trivial, da es sich bei dem Seed/Key im Allgemeinen um einen kurzen, zufällig gleichverteilten Bitstring handelt.
