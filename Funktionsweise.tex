@@ -83,7 +83,7 @@ Zur Entschlüsselung wird der Ciphertext \(C\) zunächst mit dem Schlüssel \(K\
 
 \subsection{Unterschiede zu bestehenden Verfahren}
 
-Um abgrenzen zu können, was Honey Encryption ausmacht, soll an dieser Stelle auf einige Verfahren eingegangen werden, die ähnlich arbeiten oder auf den ersten Blick ähnlich aussehen (die Beispiele sind entnommen aus \cite{EURO2014} und \cite{IEEE2014}).
+Um abgrenzen zu können, was Honey Encryption ausmacht, soll an dieser Stelle auf einige Verfahren eingegangen werden, die ähnlich arbeiten oder auf den ersten Blick ähnlich aussehen (die Beispiele sind entnommen aus \cite{IEEE2014} und \cite{EURO2014}).
 
 Das erste Verfahren, das betrachtet werden soll, ist das sogenannte One Time Pad. Hierbei handelt es sich um simple XOR-Verknüpfung der Nachricht mit einem mindestens ebenso langen, zufälligen Schlüssel, der nur ein einziges Mal verwendet werden darf. Bei der Entschlüsselung lässt sich so je nach gewähltem Schlüssel jede andere (gleich lange) Nachricht mit gleicher Wahrscheinlichkeit erhalten. Bei dem One Time Pad handelt es sich jedoch nicht um ein Honey Encryption-Schema, denn erstens liefert die Entschlüsselung mit zufälligem Schlüssel nur in den wenigstens Fällen eine plausible Nachricht und zweitens werden auf jeden Fall Schlüssel hoher Entropie benötigt, Honey Encryption soll jedoch auch mit Schlüsseln geringer Entropie Sicherheit bieten.
 
