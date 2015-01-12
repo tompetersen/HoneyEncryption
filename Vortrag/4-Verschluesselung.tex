@@ -1,6 +1,47 @@
-\section{Verschlüsselung}
+\section{Hashbasierte Verschlüsselung}
 
-\begin{frame}[t]
-	\frametitle{Verschlüsselung}
+\begin{frame}[c]
+	\frametitle{Hashbasierte Verschlüsselung}
+	
+	\begin{columns}
+		\column{.5\textwidth}
+		Verschlüsselung
+		\begin{align*}
+			\text{HEnc}&_{\text{Hash}}(M, K)\\
+			&S \overset{<r>}{=} \text{DTE}_{\text{encode}}(M)\\ 	%Encoding
+			&R \overset{<r>}{=} \{0,1\}^k\\	%Random
+			&H = \text{HF}(K,R)\\	%Hash
+			&C = H \oplus S\\	%XOR
+			&\text{Return } (C,R)
+		\end{align*}
+		
+		\pause
+
+		\column{.5\textwidth}
+		Entschlüsselung
+		\begin{align*}
+			\text{HDec}&_{\text{Hash}}((C,R), K)\\
+			&H = \text{HF}(K,R)\\	%Hash
+			&S = H \oplus C\\	%XOR
+			&M = \text{DTE}_{\text{decode}}(S)\\ 	%Decoding
+			&\text{Return } M
+		\end{align*}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Verschlüsselung mit Blockchiffren}
+
+	\begin{block}{Blockchiffren}
+		Blockchiffren sind \emph{symmetrische} Verschlüsselungsverfahren, die Klartexte und Ciphertexte in Bitgruppen fester Länge (\emph{Blöcken}) bearbeiten.
+	\end{block}
+
+	\pause
+
+	\begin{itemize}
+		\item Können unter bestimmten Voraussetzungen ebenfalls für \emph{HE} genutzt werden.
+		\item Nur bestimmte Betriebsmodi (CTR, CBC) sind geeignet.
+		\item Es darf kein Padding benötigt werden.
+	\end{itemize}
 
 \end{frame}
