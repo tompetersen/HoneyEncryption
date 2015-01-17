@@ -1,7 +1,7 @@
 \subsection{Distribution Transforming Encoder}
 
 \begin{frame}[t]
-	\frametitle{DTE}
+	\frametitle{DTE - Distribution Transforming Encoder}
 
 	\begin{figure}
 	\center
@@ -40,14 +40,14 @@
 \end{frame}
 
 \begin{frame}[t]
-	\frametitle{DTE}
+	\frametitle{DTE - Schema}
 
 	$$DTE = (encode, decode)$$
-	
-	\begin{itemize}
-		\item $encode$ meist randomisiert
-		\item $decode$ deterministisch
-	\end{itemize}
+	\begin{center}
+		\noindent\rule{2cm}{0.4pt}	
+	\end{center}
+	$$encode(Nachricht) \overset{<r>}{=} Seed$$
+	$$decode(Seed) = Nachricht$$
 	
 	\begin{figure}
 	\center
@@ -78,11 +78,10 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{DTE}
-	Mögliche DTE-Formen:
+	\frametitle{DTE - Speicherung}
 	
 	\begin{itemize}
-		\item Tabelle/Datenstruktur zum Nachschauen
+		\item Datenstruktur (z.B. Tabelle)
 	\end{itemize}
 	
 	\center
@@ -99,21 +98,23 @@
 	\end{tabular}
 	
 	\begin{itemize}
-		\item Funktion zur Berechnung
+		\item Algorithmus zur direkten Berechnung
+		\begin{itemize}
+			\item PINs
+			\item Kreditkarten-Nummern
+		\end{itemize}
 	\end{itemize}
 		
 			
 \end{frame}
 
 \begin{frame}[t]
-	\frametitle{DTE}
+	\frametitle{DTE - Voraussetzungen}
 
-	Bekannt sein muss:
 	\begin{itemize}
-		\item Menge/Struktur der Nachrichten
+		\item Struktur/Menge der Nachrichten
 		\begin{itemize}
-			\item endlich speicherbar/berechenbar
-			\item unendlich berechenbar
+			\item Klartexte sollen plausibel sein!
 		\end{itemize}
 		\item Verteilung der Nachrichten
 		\begin{itemize}
